@@ -1,0 +1,17 @@
+/* popup */
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 180px;
+}
+.condition-form {
+    min-width: 360px;
+}
+.nav {
+    margin-bottom: 0;
+}
+li > a {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 20em;
+}
