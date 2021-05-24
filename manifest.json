@@ -43,6 +43,13 @@
 			"all_frames": true,
 			"match_about_blank": true,
 			"js": ["js/sass_bar_hide.js"]
+		},
+		{
+			"matches": ["https://www.qingwk.com/*", "https://qingwk.com/*"],
+			"run_at": "document_idle",
+			"all_frames": true,
+			"match_about_blank": true,
+			"js": ["js/qingwk_hide_ad.js"]
 		}
 	],
 	"permissions": [
