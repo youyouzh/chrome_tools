@@ -18,7 +18,6 @@ function hide_not_care_elements() {
 
 function auto_click_question() {
     const question_tab_element = document.getElementById('tab-works');
-    console.log(question_tab_element);
     if (!!question_tab_element) {
         question_tab_element.click();
     }

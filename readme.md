@@ -1,3 +1,7 @@
+## Chrome 扩展开发文档
+
+官方文档参考： <https://developer.chrome.com/docs/extensions/mv3/getstarted/>。
+
 ## Chrome浏览器扩展工具
 
 ### 知乎阅读模式
