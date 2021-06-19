@@ -1,2 +1,2 @@
-let ad_bar =  document.getElementsByClassName('gg')[0];
-ad_bar && (ad_bar.style.display = 'none');
+let adBar =  document.getElementsByClassName('gg')[0];
+adBar && (adBar.style.display = 'none');

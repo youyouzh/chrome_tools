@@ -9,7 +9,7 @@ window.onscroll = function() {
     const sideColumn = document.getElementsByClassName('Question-sideColumn')[0];
     sideColumn && (sideColumn.style.display = 'none');
 
-    // 隐藏答题人休息，使用横线替换
+    // 隐藏答题人信息，使用横线替换
     const contentItem_meta = document.getElementsByClassName('ContentItem-meta'),
         contentItem_action = document.getElementsByClassName('ContentItem-actions');
     const hr = '<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" color=#987cb9 SIZE=3>'
