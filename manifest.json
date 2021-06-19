@@ -62,7 +62,7 @@
 		}
 	],
 	"permissions": [
-		"storage", "activeTab", "scripting", "notifications", "downloads", "bookmarks", "contextMenus", "<all_urls>",
+		"storage", "activeTab", "scripting", "notifications", "downloads", "bookmarks", "contextMenus",
 		"webNavigation", "cookies"
 	],
 	"homepage_url": "http://uusama.com"

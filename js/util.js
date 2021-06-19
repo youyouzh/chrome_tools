@@ -44,7 +44,14 @@ function downloadImage(imageUrl, imagName) {
 function hideElement(className) {
     const classElements = document.getElementsByClassName(className);
     if (!!classElements && classElements.length > 0) {
-        classElements[0].style.display = 'none';
-        classElements[0].style.zIndex = '-10';
+        for (const element of classElements) {
+            element.style.display = 'none';
+            element.style.zIndex = '-10';
+        }
     }
+}
+
+function getFirstClassElement(className) {
+    const classElements = document.getElementsByClassName(className);
+    return classElements && classElements[0];
 }
