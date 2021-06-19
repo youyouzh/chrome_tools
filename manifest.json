@@ -1,8 +1,8 @@
 {
 	"author": "uusama",
-	"name": "Chrome Extension Tools ",
+	"name": "Chrome Extension Sample Tools.",
 	"version": "1.0",
-	"manifest_version": 2,
+	"manifest_version": 3,
 	"description": "Some simple tools for chrome.",
 	"icons": {
         "128": "image/icon_128.png",
@@ -11,26 +11,26 @@
         "16": "image/icon_16.png"
 	},
 	"offline_enabled": true,
-	"browser_action": {
+	"background": {
+		"service_worker": "background.js"
+	},
+	"action": {
+		"default_popup": "popup.html",
 		"default_icon": {
 			"128": "image/icon_128.png",
 			"48": "image/icon_48.png",
 			"32": "image/icon_32.png",
 			"16": "image/icon_16.png"
-		},
-		"default_title": "Chrome Tools",
-		"default_popup": "popup.html"
+		}
 	},
-	"background": {
-		"scripts": ["js/background.js"]
-	},
+	"options_page": "options.html",
 	"content_scripts": [
 		{
 			"matches": ["http://*/*", "https://*/*"],
 			"run_at": "document_idle",
 			"all_frames": true,
 			"match_about_blank": true,
-			"js": ["js/jquery.min.js", "js/complete.js"]
+			"js": ["js/util.js"]
 		},
 		{
 			"matches": ["http://www.zhihu.com/question/*", "https://www.zhihu.com/question/*"],
@@ -52,13 +52,18 @@
 			"all_frames": true,
 			"match_about_blank": true,
 			"js": ["js/qingwk_hide_ad.js"]
+		},
+		{
+			"matches": ["http://www.jj20.com/*", "https://www.jj20.com/*", "http://jj20.com/*"],
+			"run_at": "document_idle",
+			"all_frames": true,
+			"match_about_blank": true,
+			"js": ["js/jj20_picture_download.js"]
 		}
 	],
 	"permissions": [
-		"background", "geolocation", "management", "topSites", "bookmarks", "unlimitedStorage", "topSites", "identity",
-		"http://*/*", "https://*/*", "chrome://favicon/", "history", "contextMenus",
-		"alarms", "notifications", "tabs", "storage", "activeTab",
-		"declarativeContent", "webNavigation", "webRequest", "webRequestBlocking", "cookies"
+		"storage", "activeTab", "scripting", "notifications", "downloads", "bookmarks", "contextMenus", "<all_urls>",
+		"webNavigation", "cookies"
 	],
 	"homepage_url": "http://uusama.com"
 }
