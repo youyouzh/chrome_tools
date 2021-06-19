@@ -18,7 +18,6 @@ function hideNotCareElements() {
 
 function autoClickQuestion() {
     const questionTabElement = document.getElementById('tab-works');
-    console.log(questionTabElement);
     if (!!questionTabElement) {
         questionTabElement.click();
     }
