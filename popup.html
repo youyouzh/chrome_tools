@@ -6,28 +6,32 @@
     <link rel="stylesheet" href="css/popup.css">
 </head>
 <body>
-<ul class="popup-menu-nav nav nav-pills nav-stacked">
-    <li class="profile">
-        <a href="#" role="button">
-            <span>
-                选择1
-            </span>
-        </a>
-    </li>
-    <li class="profile">
-        <a href="#" role="button">
-            <span>
-                选择2
-            </span>
-        </a>
-    </li>
-    <li class="profile">
-        <a href="#" role="button">
-            <span>
-                选择3
-            </span>
-        </a>
-    </li>
-</ul>
+
+<div id="pop_main">
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+            <a id="download-button" class="extBtn" href="#" data-level="0">
+                <span class="glyphicon glyphicon-flash"></span>
+                下载本页图片
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a class="optionBtn" target="_imageAssistant_options" href="./options.html">
+                <span class="glyphicon glyphicon-wrench"></span>
+                扩展选项
+            </a>
+        </li>
+        <li>
+            <a class="optionBtn" target="_imageAssistant_options" href="./options.html?showMsg=about">
+                <span class="glyphicon glyphicon-copyright-mark"></span>
+                关于扩展
+                <span id="newVersion">new</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script src="js/popup.js"></script>
 </body>
 </html>
