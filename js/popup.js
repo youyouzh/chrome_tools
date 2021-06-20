@@ -2,8 +2,6 @@
  * popup.js
  */
 
-let needDownloadUrl = null;
-let downloadedUrls = [];
 document.getElementById('download-button').addEventListener("click", async () => {
     // 下载文件
     // for (const downloadUrl of downloadUrls) {

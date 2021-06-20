@@ -11,9 +11,18 @@
 
 function focusPicture() {
     console.log('focusPicture');
-    hideElement('g-box-1200');
-    hideElement('bzc2');
+    const imageElement = document.getElementById('bigImg');
+    if (!imageElement) {
+        // 没有图片则直接返回
+        return;
+    }
 
+    // 隐藏下方的推荐
+    hideElement('bzc2');
+    hideElement('bzc1');
+    hideElement('g-box-1200');
+
+    // 修改上下按钮，避免阻挡图片的展示
     const prevDivElement = getFirstClassElement('tu-shang');
     const nextDivElement = getFirstClassElement('tu-xia');
     if (!!prevDivElement) {
@@ -25,35 +34,32 @@ function focusPicture() {
         nextDivElement.style.heidht = '30%';
     }
 
-    const imageElement = document.getElementById('bigImg');
+    // 隐藏图片上层的a标签，避免点击等操作被拦截
     const cloneImageElement = imageElement.cloneNode(true);
-
-    // 隐藏原来的元素
     imageElement.parentElement.parentElement.prepend(cloneImageElement);
     imageElement.parentElement.parentElement.removeChild(imageElement.parentElement);
 
     let fullImageUrl = document.getElementById('kk').childNodes[0].href;
     fullImageUrl = fullImageUrl.replace('http://cj.jj20.com/2020/down.html?picurl=', 'http://pic.jj20.com');
 
-    // 修改【查看原图】按钮
-    const buttonElement = document.getElementById('kk').childNodes[0];
-    buttonElement.href = 'javascript:void(0);';
-    buttonElement.target = '';
-    buttonElement.addEventListener('click', () => readyDownloadImage(fullImageUrl));
-
     // 添加事件监听
-    cloneImageElement.addEventListener('contextmenu', () => readyDownloadImage(fullImageUrl));
+    // cloneImageElement.addEventListener('contextmenu', () => readyDownloadImage(fullImageUrl));
     cloneImageElement.addEventListener('click', () => readyDownloadImage(fullImageUrl));
-    cloneImageElement.addEventListener('dblclick', () => readyDownloadImage(fullImageUrl));
+    cloneImageElement.addEventListener('dblclick', () => readyDownloadImage(fullImageUrl, true));
+    document.querySelector('li.cur').addEventListener('dblclick', () => readyDownloadImage(fullImageUrl, false));
 }
 
-function readyDownloadImage(imageUrl) {
+function readyDownloadImage(imageUrl, force=false) {
     console.log('ready download image: ' + imageUrl);
     document.getElementById('bigImg').src = imageUrl;
+    let title = document.querySelector('div.tu-tit h1 span').innerText;
 
     // 发送消息给扩展程序
     chrome.runtime.sendMessage({
-        downloadUrl: imageUrl
+        type: 'download',
+        url: imageUrl,
+        title: title.replace(/\([\d/]+\)/, ''),
+        force: force
     });
 }
 
