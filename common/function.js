@@ -2,6 +2,10 @@
  * 一些工具类
  */
 
+// 常量定义
+_u_constant = {};
+_u_constant.cookie_storage_key = '_u_cookie_cache';
+
 /**
  * 通过绘制canvas实现图片下载，直接通过设置a标签href属性的方式对于服务器设置了content-type: image的方式不能下载
  * 需要服务器设置 content-type: application/octet-stream

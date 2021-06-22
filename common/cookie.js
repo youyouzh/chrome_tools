@@ -1,8 +1,5 @@
 "use strict";
 
-window._u_constant = {};
-window._u_constant.cookie_storage_key = '_u_cookie_cache';
-
 // An object used for caching data about the browser's cookies, which we update
 // as notifications come in.
 function CookieCache(cookies) {
@@ -54,19 +51,21 @@ function CookieCache(cookies) {
 }
 
 async function cookieChange(info) {
-    const cachedCookies = await chrome.storage.local.get(_u_constant.cookie_storage_key);
-    console.log(_u_constant.cookie_storage_key, cachedCookies);
+    chrome.storage.local.get(_u_constant.cookie_storage_key, (result) => {
+        console.log(_u_constant.cookie_storage_key, result);
+        result = result[_u_constant.cookie_storage_key];
 
-    const cookieCache = new CookieCache(cachedCookies);
-    cookieCache.remove(info.cookie);
-    if (info.removed) {
-        return;
-    }
-    cookieCache.add(info.cookie);
+        const cookieCache = new CookieCache(result);
+        cookieCache.remove(info.cookie);
+        if (info.removed) {
+            return;
+        }
+        cookieCache.add(info.cookie);
 
-    const saveData = {};
-    saveData[_u_constant.cookie_storage_key] = JSON.stringify(cookieCache.getAll());
-    chrome.storage.local.set(saveData, () => console.log('update cookie cache success: ', cookieCache));
+        const saveData = {};
+        saveData[_u_constant.cookie_storage_key] = cookieCache.getAll();
+        chrome.storage.local.set(saveData, () => console.log('update cookie cache success: ', cookieCache));
+    })
 }
 
 chrome.cookies.onChanged.addListener((info) => cookieChange(info));
