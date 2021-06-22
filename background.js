@@ -1,6 +1,16 @@
 /**
  * Created by rumi.zhao on 2017/10/20.
  * 参考： https://developer.chrome.com/docs/extensions/mv3/background_pages/
+ * 自从manifest-v3版本以后，background.common 的作用是一个后台的 service worker，它只在需要的时候启动，比如其中监听的事件被触发时
+ * 其核心设计逻辑是在后台运行，与网页分开，专注与处理网页外的工作，比如推送通知、丰富的离线支持、后台同步和“添加到主屏幕”，需要注意下面两个问题
+ *
+ * 首先，service worker 在不使用时终止，需要时重新启动（比如收到事件通知）。
+ * 相比于v2版本的background.common，不应再使用局部变量来保持值，service worker 的生命周期很短暂，使用 chrome.storage.local 代替
+ * 在service worker 中使用 setTimeout或setInterval方法执行延迟或定期操作可能会失败，因为调度程序会在 Service Worker 终止时取消计时器，使用 chrome.alarms 代替
+ *
+ * 其次，服务工作者无权访问页面 DOM。
+ * Service Worker 无法访问DOMParser API 或创建 iframe 来解析和遍历文档，可以通过 chrome.tabs.create() 创建新选项卡或使用库
+ * 创建画布使用离线画布： const canvas = new OffscreenCanvas(width, height);
  */
 
 // 插件安装成功后的回调

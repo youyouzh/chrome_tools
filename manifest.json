@@ -30,35 +30,35 @@
 			"run_at": "document_idle",
 			"all_frames": true,
 			"match_about_blank": true,
-			"js": ["js/util.js"]
+			"js": ["common/function.js"]
 		},
 		{
 			"matches": ["http://www.zhihu.com/question/*", "https://www.zhihu.com/question/*"],
 			"run_at": "document_idle",
 			"all_frames": true,
 			"match_about_blank": true,
-			"js": ["js/zhihu_hide_bar.js"]
+			"js": ["content/zhihu_hide_bar.js"]
 		},
 		{
 			"matches": ["https://www.sass.hk/docs/*", "https://www.sass.hk/*"],
 			"run_at": "document_idle",
 			"all_frames": true,
 			"match_about_blank": true,
-			"js": ["js/sass_bar_hide.js"]
+			"js": ["content/sass_bar_hide.js"]
 		},
 		{
 			"matches": ["https://www.qingwk.com/*", "https://qingwk.com/*"],
 			"run_at": "document_idle",
 			"all_frames": true,
 			"match_about_blank": true,
-			"js": ["js/qingwk_hide_ad.js"]
+			"js": ["content/qingwk_hide_ad.js"]
 		},
 		{
 			"matches": ["http://www.jj20.com/*", "https://www.jj20.com/*", "http://jj20.com/*"],
 			"run_at": "document_idle",
 			"all_frames": true,
 			"match_about_blank": true,
-			"js": ["js/jj20_picture_download.js"]
+			"js": ["content/jj20_picture_download.js"]
 		}
 	],
 	"permissions": [
