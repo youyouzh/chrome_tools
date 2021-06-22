@@ -89,5 +89,3 @@ function processDownloadUrl(message) {
     }
     chrome.storage.sync.set({downloadUrlsKey, downloadedUrls});
 }
-
-chrome.cookies.onChanged.addListener((info) => cookieChange(info));

@@ -12,6 +12,33 @@ document.getElementById('download-button').addEventListener("click", async () =>
     // }
 });
 
+document.getElementById('copy-wumii-dev-cookie').addEventListener('click', () => copyCookie('admin.wumii.net'));
+document.getElementById('copy-wumii-online-cookie').addEventListener('click', () => copyCookie('admin-web.wumii.net'));
+
+async function copyCookie(domain) {
+    let cachedCookies = await chrome.storage.local.get(_u_constant.cookie_storage_key);
+    console.log(_u_constant.cookie_storage_key, cachedCookies);
+
+    cachedCookies = JSON.parse(cachedCookies);
+    if (!cachedCookies) {
+        // 不存在cookie，打开新页面
+        chrome.tabs.create({
+            active: true,
+            url: 'https://' + domain + '/admin/amis/minicourse/GiftMiniCourse'
+        }, (tab) => {
+            chrome.tabs.remove(tab.id);
+        })
+    } else {
+        const inputElement = document.createElement('input');
+        inputElement.type = 'text';
+        inputElement.value = 'Cookie: ' + cachedCookies[0].name + '=' + cachedCookies[0].value;
+        inputElement.style.display = 'none';
+        document.appendChild(inputElement);
+        inputElement.select();
+        document.execCommand('Copy');
+    }
+}
+
 
 async function executeContentScript() {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });

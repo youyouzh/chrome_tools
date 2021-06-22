@@ -1,11 +1,19 @@
+"use strict";
+
+window._u_constant = {};
+window._u_constant.cookie_storage_key = '_u_cookie_cache';
 
 // An object used for caching data about the browser's cookies, which we update
 // as notifications come in.
-function CookieCache() {
-    this._cookies = {};
+function CookieCache(cookies) {
+    this._cookies = cookies || {};
 
     this.reset = function() {
         this._cookies = {};
+    }
+
+    this.getAll = function() {
+        return this._cookies;
     }
 
     this.add = function(cookie) {
@@ -45,27 +53,20 @@ function CookieCache() {
     };
 }
 
-function cookieChange(info) {
-    const cookieStorageKey = 'cookie-cache';
-    let cookieCache = new CookieCache();
-    chrome.storage.local.get([cookieStorageKey], (result) => cookieCache = result);
+async function cookieChange(info) {
+    const cachedCookies = await chrome.storage.local.get(_u_constant.cookie_storage_key);
+    console.log(_u_constant.cookie_storage_key, cachedCookies);
 
+    const cookieCache = new CookieCache(cachedCookies);
     cookieCache.remove(info.cookie);
     if (info.removed) {
         return;
     }
     cookieCache.add(info.cookie);
-    console.log(cookieCache);
-    if (info.cookie.domain.indexOf('wumii.net') >= 0) {
-        let wumiiCookie = 'Cookie: ' + info.cookie.name + '=' + info.cookie.value;
-        console.log('capture wumii online cookie: ' + wumiiCookie);
-        chrome.notifications.create('notification-id', {
-            type: "basic",
-            title: "成功获取cookie",
-            message: "Primary message to display",
-            iconUrl: "image/icon_48.png"
-        }, (id) => {
-            console.log('send success:' + id);
-        });
-    }
+
+    const saveData = {};
+    saveData[_u_constant.cookie_storage_key] = JSON.stringify(cookieCache.getAll());
+    chrome.storage.local.set(saveData, () => console.log('update cookie cache success: ', cookieCache));
 }
+
+chrome.cookies.onChanged.addListener((info) => cookieChange(info));
