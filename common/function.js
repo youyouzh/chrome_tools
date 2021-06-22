@@ -42,7 +42,7 @@ function downloadImage(imageUrl, imagName) {
  * @param className className
  */
 function hideElement(className) {
-    const classElements = document.getElementsByClassName(className);
+    const classElements = document.querySelector('.' + className);
     if (!!classElements && classElements.length > 0) {
         for (const element of classElements) {
             element.style.display = 'none';
@@ -51,7 +51,61 @@ function hideElement(className) {
     }
 }
 
-function getFirstClassElement(className) {
-    const classElements = document.getElementsByClassName(className);
-    return classElements && classElements[0];
+/**
+ * 因为content-script有一个很大的“缺陷”，也就是无法访问页面中的JS，虽然它可以操作DOM
+ * 可以通过在原Dom中注入一个 <script> 节点，并导入注入的脚本即可，这样就可以使用原页面中js代码，比如调用签名函数等
+ * 注意还需要在 manifest.json 中配置 web_accessible_resources，包含需要注入的js文件
+ *
+ * @param jsPath 需要注入的js相对路径
+ */
+function injectCustomJs(jsPath) {
+    jsPath = jsPath || 'js/inject.js';
+    const scriptElement = document.createElement('script');
+    scriptElement.setAttribute('type', 'text/javascript');
+    // 获得的地址类似：chrome-extension://ohoiusodihtoalkjxoichgoiaw/js/inject.js
+    scriptElement.src = chrome.extension.getURL(jsPath);
+
+    // 放在页面不好看，执行完后移除掉
+    // scriptElement.onload = () => this.parentNode.removeChild(this)
+    document.head.appendChild(scriptElement);
+}
+
+/**
+ * 创建通知
+ * 图片通知
+var opt = {
+  type: "basic",
+  title: "Primary Title",
+  message: "Primary message to display",
+  iconUrl: "url_to_small_icon",
+  imageUrl: "url_to_preview_image"
+}
+ * 列表通知
+ * var opt = {
+  type: "list",
+  title: "Primary Title",
+  message: "Primary message to display",
+  iconUrl: "url_to_small_icon",
+  items: [{ title: "Item1", message: "This is item 1."},
+          { title: "Item2", message: "This is item 2."},
+          { title: "Item3", message: "This is item 3."}]
+}
+ * 创建进度通知
+ * var opt = {
+  type: "progress",
+  title: "Primary Title",
+  message: "Primary message to display",
+  iconUrl: "url_to_small_icon",
+  progress: 42
+}
+ */
+function createBasicNotification() {
+    chrome.notifications.create('notification-id', {
+        type: "basic",
+        title: "Primary Title",
+        message: "Primary message to display",
+        iconUrl: "image/icon_48.png"
+    }, (id) => {
+        console.log('send success:' + id);
+    })
 }

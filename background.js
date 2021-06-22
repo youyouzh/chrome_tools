@@ -13,6 +13,9 @@
  * 创建画布使用离线画布： const canvas = new OffscreenCanvas(width, height);
  */
 
+importScripts('common/function.js');
+importScripts('common/cookie.js');
+
 // 插件安装成功后的回调
 chrome.runtime.onInstalled.addListener(() => {
     console.log('on install event.');
@@ -53,10 +56,12 @@ function bindContextMenu() {
     });
 }
 
-let downloadedUrls = [];
-
 // 处理下载任务
-async function processDownloadUrl(message) {
+function processDownloadUrl(message) {
+    const downloadUrlsKey = 'jj20-download-urls';
+    let downloadedUrls = [];
+    chrome.storage.sync.get([downloadUrlsKey], (result) => downloadedUrls = result);
+
     if (!message || !message.hasOwnProperty('url')) {
         console.log('There is not any need download url.');
         return;
@@ -82,4 +87,7 @@ async function processDownloadUrl(message) {
         // 只记录最近的地址，避免太多，先进先出
         downloadedUrls.shift();
     }
+    chrome.storage.sync.set({downloadUrlsKey, downloadedUrls});
 }
+
+chrome.cookies.onChanged.addListener((info) => cookieChange(info));
