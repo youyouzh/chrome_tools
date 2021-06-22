@@ -23,8 +23,8 @@ function focusPicture() {
     hideElement('g-box-1200');
 
     // 修改上下按钮，避免阻挡图片的展示
-    const prevDivElement = getFirstClassElement('tu-shang');
-    const nextDivElement = getFirstClassElement('tu-xia');
+    const prevDivElement = document.querySelector('.tu-shang');
+    const nextDivElement = document.querySelector('.tu-xia');
     if (!!prevDivElement) {
         prevDivElement.style.width = '10%';
         prevDivElement.style.heidht = '30%';
