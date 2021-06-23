@@ -99,7 +99,7 @@ function downloadImage(imageUrl, imagName) {
  * @param className className
  */
 function hideElement(className) {
-    const classElements = document.querySelector('.' + className);
+    const classElements = document.getElementsByClassName(className);
     if (!!classElements && classElements.length > 0) {
         for (const element of classElements) {
             element.style.display = 'none';
