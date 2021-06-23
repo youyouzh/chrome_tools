@@ -61,7 +61,10 @@ async function cookieChange(info) {
     cookieCache.add(info.cookie);
 
     _u_api.setStorage(_u_constant.storageKey.cookie, cookieCache.getAll())
-        .catch((reason => console.log('storage set error: ', reason)));
+        .catch((reason => {
+            console.log('storage set error: ' + reason.message);
+            _u_api.setStorage(_u_constant.storageKey.cookie, null);  // 清空cookie
+        }));
 }
 
 chrome.cookies.onChanged.addListener((info) => cookieChange(info));

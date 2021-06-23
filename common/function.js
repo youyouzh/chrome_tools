@@ -207,3 +207,24 @@ function copyContent(content) {
     copyFrom.select();
     document.execCommand('copy');
 }
+
+/**
+ * 执行content脚本
+ *
+ * @returns {Promise<void>}
+ */
+async function executeContentScript() {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        function: downloadImage,
+    });
+
+    chrome.windows.getCurrent(function (currentWindow) {
+        chrome.tabs.query({active: true, windowId: currentWindow.id},
+            function(activeTabs) {
+                chrome.tabs.executeScript(
+                    activeTabs[0].id, {file: 'content_script.js', allFrames: true});
+            });
+    });
+}
