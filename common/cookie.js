@@ -51,21 +51,28 @@ function CookieCache(cookies) {
 }
 
 async function cookieChange(info) {
-    chrome.storage.local.get(_u_constant.cookie_storage_key, (result) => {
-        console.log(_u_constant.cookie_storage_key, result);
-        result = result[_u_constant.cookie_storage_key];
+    const storageCookie = await _u_api.getStorage(_u_constant.storageKey.cookie);
 
-        const cookieCache = new CookieCache(result);
-        cookieCache.remove(info.cookie);
-        if (info.removed) {
-            return;
-        }
-        cookieCache.add(info.cookie);
+    const cookieCache = new CookieCache(storageCookie[_u_constant.storageKey.cookie]);
+    cookieCache.remove(info.cookie);
+    if (info.removed) {
+        return;
+    }
+    if (info.cookie.domain.indexOf('wumii') === -1) {
+        return;
+    }
+    cookieCache.add(info.cookie);
 
-        const saveData = {};
-        saveData[_u_constant.cookie_storage_key] = cookieCache.getAll();
-        chrome.storage.local.set(saveData, () => console.log('update cookie cache success: ', cookieCache));
-    })
+    _u_api.setStorage(_u_constant.storageKey.cookie, cookieCache.getAll())
+        .catch((reason => console.log('storage set error: ', reason)));
+
+
+    chrome.notifications.create('cookie-copy', {
+        type: 'basic',
+        title: '复制Cookie成功',
+        message: '重构复制Cookie，域名： ' + '',
+        iconUrl: '/image/icon_16.png',
+    });
 }
 
 chrome.cookies.onChanged.addListener((info) => cookieChange(info));

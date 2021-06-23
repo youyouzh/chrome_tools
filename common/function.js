@@ -1,10 +1,60 @@
 /**
  * 一些工具类
+ * 全局变量统一使用小写的下划线分割命名，并且以 _u_开头
+ * 局部变量统一使用驼峰命名法，包括对象字段名
  */
 
 // 常量定义
-_u_constant = {};
-_u_constant.cookie_storage_key = '_u_cookie_cache';
+_u_constant = {
+    storageKey: {
+        downloadUrls: '_u_download_urls',
+        cookie: '_u_cookie_cache'
+    }
+};
+
+// 自有封装的api
+_u_api = {
+    getStorage: function (keys) {
+        // Immediately return a promise and start asynchronous work
+        return new Promise((resolve, reject) => {
+            // Asynchronously fetch all data from storage.sync.
+            chrome.storage.sync.get(keys, (items) => {
+                // Pass any observed errors down the promise chain.
+                if (chrome.runtime.lastError) {
+                    return reject(chrome.runtime.lastError);
+                }
+                // Pass the data retrieved from storage down the promise chain.
+                resolve(items);
+            });
+        });
+    },
+    /**
+     * chrome.storage.sync.set 的配额为 8,192 byte
+     * chrome.storage.local.set 的配额为 5,242,880  byte
+     * permissions unlimitedStorage，可以设置不限大小的storage
+     *
+     * @param key key
+     * @param value value
+     * @returns {Promise<unknown>}
+     */
+    setStorage: function (key, value) {
+        // storage 设置更新的 promise 封装
+        return new Promise((resolve, reject) => {
+            const saveData = {};
+            saveData[key] = value;
+            chrome.storage.sync.set(saveData, () => {
+                if (chrome.runtime.lastError) {
+                    return reject(chrome.runtime.lastError);
+                }
+                resolve();
+            });
+        });
+    },
+    removeCookie: function(cookie) {
+        const url = "http" + (cookie.secure ? "s" : "") + "://" + cookie.domain + cookie.path;
+        return chrome.cookies.remove({"url": url, "name": cookie.name});
+    }
+};
 
 /**
  * 通过绘制canvas实现图片下载，直接通过设置a标签href属性的方式对于服务器设置了content-type: image的方式不能下载
@@ -112,4 +162,45 @@ function createBasicNotification() {
     }, (id) => {
         console.log('send success:' + id);
     })
+}
+
+/**
+ * 创建一个新的tab
+ *
+ * @param url 可以是插件相对url， 比如 page/cookie.html
+ */
+function focusOrCreateTab(url) {
+    chrome.windows.getAll({"populate":true}, function(windows) {
+        let existing_tab = null;
+        for (const window of windows) {
+            for (const tab of window.tabs) {
+                if (tab.url === url) {
+                    existing_tab = tab;
+                    break;
+                }
+            }
+        }
+
+        if (existing_tab) {
+            chrome.tabs.update(existing_tab.id, {"selected":true});
+        } else {
+            chrome.tabs.create({"url":url, "selected":true});
+        }
+    });
+}
+
+/**
+ * 创建一个 textarea，并设置内容，实现自动复制到剪贴板
+ *
+ * @param content 复制的内容
+ */
+function copyContent(content) {
+    const copyFrom = document.createElement('textarea');
+    copyFrom.style.position = 'absolute';
+    copyFrom.style.left = '-1000px';
+    copyFrom.style.top = '-1000px';
+    copyFrom.textContent = content;
+    document.append(copyFrom);
+    copyFrom.select();
+    document.execCommand('copy');
 }

@@ -34,19 +34,17 @@ chrome.runtime.onInstalled.addListener(() => {
  * 以type区分类型
  * type: download - 下载任务
  */
-chrome.runtime.onMessage.addListener(
-    function(message, sender, sendResponse) {
-        console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
-        if (!message.type) {
-            console.log("please set the type param, when you send message.");
-            return;
-        }
-
-        if (message.type === 'download') {
-            processDownloadUrl(message);
-        }
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
+    if (!message.type) {
+        console.log("please set the type param, when you send message.");
+        return;
     }
-);
+
+    if (message.type === 'download') {
+        processDownloadUrl(message);
+    }
+});
 
 function bindContextMenu() {
     chrome.contextMenus.create({
@@ -57,16 +55,15 @@ function bindContextMenu() {
 }
 
 // 处理下载任务
-function processDownloadUrl(message) {
-    const downloadUrlsKey = 'jj20-download-urls';
-    let downloadedUrls = [];
-    chrome.storage.sync.get([downloadUrlsKey], (result) => downloadedUrls = result);
-
+async function processDownloadUrl(message) {
     if (!message || !message.hasOwnProperty('url')) {
         console.log('There is not any need download url.');
         return;
     }
-    if (downloadedUrls.indexOf(message.url) >= 0 && !message.force) {
+
+    let cacheDownloadUrls = await _u_api.getStorage(_u_constant.storageKey.downloadUrls);
+    cacheDownloadUrls = cacheDownloadUrls && cacheDownloadUrls[_u_constant.storageKey.downloadUrls] || [];
+    if (cacheDownloadUrls.indexOf(message.url) >= 0 && !message.force) {
         console.log('The file has been download: ' + message.url);
         return;
     }
@@ -81,11 +78,12 @@ function processDownloadUrl(message) {
 
     // 通过地址下载文件
     chrome.downloads.download({url: message.url, filename: filename});
-    downloadedUrls.push(message.url);
+    cacheDownloadUrls.push(message.url);
 
-    if (downloadedUrls.length >= 100) {
+    if (cacheDownloadUrls.length >= 100) {
         // 只记录最近的地址，避免太多，先进先出
-        downloadedUrls.shift();
+        cacheDownloadUrls.shift();
     }
-    chrome.storage.sync.set({downloadUrlsKey, downloadedUrls});
+
+    await _u_api.setStorage(_u_constant.storageKey.downloadUrls, cacheDownloadUrls);
 }
