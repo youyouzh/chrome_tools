@@ -18,7 +18,7 @@ _u_api = {
         // Immediately return a promise and start asynchronous work
         return new Promise((resolve, reject) => {
             // Asynchronously fetch all data from storage.sync.
-            chrome.storage.sync.get(keys, (items) => {
+            chrome.storage.local.get(keys, (items) => {
                 // Pass any observed errors down the promise chain.
                 if (chrome.runtime.lastError) {
                     return reject(chrome.runtime.lastError);
@@ -31,7 +31,7 @@ _u_api = {
     /**
      * chrome.storage.sync.set 的配额为 8,192 byte
      * chrome.storage.local.set 的配额为 5,242,880  byte
-     * permissions unlimitedStorage，可以设置不限大小的storage
+     * permissions unlimitedStorage，可以设置不限大小的storage，此权限仅适用于 Web SQL 数据库和应用程序缓存
      *
      * @param key key
      * @param value value
@@ -42,13 +42,16 @@ _u_api = {
         return new Promise((resolve, reject) => {
             const saveData = {};
             saveData[key] = value;
-            chrome.storage.sync.set(saveData, () => {
+            chrome.storage.local.set(saveData, () => {
                 if (chrome.runtime.lastError) {
                     return reject(chrome.runtime.lastError);
                 }
                 resolve();
             });
         });
+    },
+    clearStorage: function () {
+        return new Promise((resolve, reject) => chrome.storage.local.clear(() => resolve()));
     },
     removeCookie: function(cookie) {
         const url = "http" + (cookie.secure ? "s" : "") + "://" + cookie.domain + cookie.path;

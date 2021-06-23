@@ -58,21 +58,10 @@ async function cookieChange(info) {
     if (info.removed) {
         return;
     }
-    if (info.cookie.domain.indexOf('wumii') === -1) {
-        return;
-    }
     cookieCache.add(info.cookie);
 
     _u_api.setStorage(_u_constant.storageKey.cookie, cookieCache.getAll())
         .catch((reason => console.log('storage set error: ', reason)));
-
-
-    chrome.notifications.create('cookie-copy', {
-        type: 'basic',
-        title: '复制Cookie成功',
-        message: '重构复制Cookie，域名： ' + '',
-        iconUrl: '/image/icon_16.png',
-    });
 }
 
 chrome.cookies.onChanged.addListener((info) => cookieChange(info));
