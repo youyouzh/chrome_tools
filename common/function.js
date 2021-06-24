@@ -100,10 +100,10 @@ function downloadImage(imageUrl, imagName) {
 /**
  * 隐藏掉指定类名称的元素
  *
- * @param className className
+ * @param querySelector css查询选择器
  */
-function hideElement(className) {
-    const classElements = document.getElementsByClassName(className);
+function hideElement(querySelector) {
+    const classElements = document.querySelectorAll(querySelector);
     if (!!classElements && classElements.length > 0) {
         for (const element of classElements) {
             element.style.display = 'none';

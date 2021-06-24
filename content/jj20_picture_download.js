@@ -18,9 +18,9 @@ function focusPicture() {
     }
 
     // 隐藏下方的推荐
-    hideElement('bzc2');
-    hideElement('bzc1');
-    hideElement('g-box-1200');
+    hideElement('.bzc2');
+    hideElement('.bzc1');
+    hideElement('.g-box-1200');
 
     // 修改上下按钮，避免阻挡图片的展示
     const prevDivElement = document.querySelector('.tu-shang');
