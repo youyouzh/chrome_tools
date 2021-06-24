@@ -58,6 +58,10 @@ async function cookieChange(info) {
     if (info.removed) {
         return;
     }
+    if (_u_constant.cookie.cacheDomains.indexOf(info.cookie.domain) === -1) {
+        // 无关的cookie不缓存，避免占用过多的 storage 存储
+        return;
+    }
     cookieCache.add(info.cookie);
 
     _u_api.setStorage(_u_constant.storageKey.cookie, cookieCache.getAll())

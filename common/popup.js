@@ -18,9 +18,10 @@ document.getElementById('copy-wumii-online-cookie').addEventListener('click', ()
 async function copyCookie(domain) {
     const storageCookie = await _u_api.getStorage(_u_constant.storageKey.cookie);
     console.log(_u_constant.storageKey.cookie, storageCookie);
-    const cookies = storageCookie && storageCookie[_u_constant.storageKey.cookie] && storageCookie[_u_constant.storageKey.cookie][domain];
+    let cookies = storageCookie && storageCookie[_u_constant.storageKey.cookie] && storageCookie[_u_constant.storageKey.cookie][domain] || [];
+    cookies = cookies.filter(cookie => _u_constant.cookie.careNames.indexOf(cookie.name) >= 0);
 
-    if (!cookies) {
+    if (!cookies.length) {
         // 不存在cookie，打开新页面
         chrome.tabs.create({
             active: true,
@@ -30,7 +31,7 @@ async function copyCookie(domain) {
         })
     } else {
         const contentElement = document.getElementById('copy-content');
-        const copyContent = 'Cookie: ' + cookies[0].name + '=' + cookies[0].value;
+        const copyContent = cookies[0].name + '=' + cookies[0].value;
         contentElement.value = copyContent;
         contentElement.textContent = copyContent;
         contentElement.select();

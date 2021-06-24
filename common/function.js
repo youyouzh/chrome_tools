@@ -9,6 +9,10 @@ _u_constant = {
     storageKey: {
         downloadUrls: '_u_download_urls',
         cookie: '_u_cookie_cache'
+    },
+    cookie: {
+        cacheDomains: ['admin.wumii.net', 'admin-web.wumii.net'],
+        careNames: ['gssapi_session', 'mod_auth_openidc_session']
     }
 };
 
