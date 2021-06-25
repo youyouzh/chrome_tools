@@ -4,7 +4,8 @@ function hideNotCareElements() {
     hideElement('.c-meiqia-wrapper');  // 弹窗广告
     hideElement('.qwk-kf-button');  // 客服图标
     hideElement('.c-footer');       // 页面底部说明
-    hideElement('.c-page-entrance'); // 右侧固定栏
+    hideElement('.c-page-2021-entrance'); // 右侧固定栏
+    hideElement('.c-footer-ad');     // 底部广告栏
 }
 
 function autoClickQuestion() {
