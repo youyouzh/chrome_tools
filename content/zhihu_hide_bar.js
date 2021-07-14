@@ -1,11 +1,5 @@
 
 function hideZhihuBanner() {
-    // 隐藏页面首部的标题
-    const pageHeader = document.getElementsByClassName('PageHeader')[0];
-    hideElement('header');          // 隐藏顶部菜单栏
-    hideElement('.Question-sideColumn'); // 隐藏右边栏：相关问题和相关推荐
-    hideElement('.QuestionHeader');      // 隐藏原问题
-
     // 隐藏答题人信息，但是显示多少赞，使用横线替换
     const contentItem_meta = document.getElementsByClassName('ContentItem-meta'),
         contentItem_action = document.getElementsByClassName('ContentItem-actions');
@@ -22,6 +16,23 @@ function hideZhihuBanner() {
         contentItem_meta[i].innerHTML = hr + zans;
         contentItem_action[i].innerHTML= hr + zans;
     }
+}
+
+function hideHeaderAndSide() {
+    hideElement('header');          // 隐藏顶部菜单栏
+    hideElement('.PageHeader');          // 隐藏顶部菜单栏
+    hideElement('.Question-sideColumn'); // 隐藏右边栏：相关问题和相关推荐
+    hideElement('.QuestionHeader');      // 隐藏原问题
+    hideElement('.Reward');   // 隐藏赞赏按钮
+}
+
+/**
+ * 优化UI，主要是修改宽度
+ */
+function optimiseUi() {
+    // 修改内容宽度，免得只有中间一小条
+    querySelector('div.Question-main', (element) => element.style.width = '100%');
+    querySelector('div.Question-mainColumn', (element) => element.style.width = '100%');
 }
 
 /**
@@ -41,5 +52,11 @@ function restoreOriginUrl() {
 
 window.onload = function() {
     restoreOriginUrl();
-    hideZhihuBanner();
+    // hideZhihuBanner();
+    optimiseUi();
+    hideHeaderAndSide();
+}
+
+window.onscroll = function () {
+    hideHeaderAndSide();
 }

@@ -113,6 +113,19 @@ function hideElement(querySelector) {
 }
 
 /**
+ * css 查询第一个元素，并调用回调函数
+ *
+ * @param querySelector css选择器
+ * @param callback 回调函数
+ */
+function querySelector(querySelector, callback) {
+    const element = document.querySelector(querySelector);
+    if (!!element && !!callback && typeof callback === 'function') {
+        callback(element);
+    }
+}
+
+/**
  * 因为content-script有一个很大的“缺陷”，也就是无法访问页面中的JS，虽然它可以操作DOM
  * 可以通过在原Dom中注入一个 <script> 节点，并导入注入的脚本即可，这样就可以使用原页面中js代码，比如调用签名函数等
  * 注意还需要在 manifest.json 中配置 web_accessible_resources，包含需要注入的js文件
