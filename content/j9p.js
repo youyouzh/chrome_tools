@@ -26,16 +26,18 @@ function changeDownloadAction() {
     cloneElement.href = '#';
     sourceDownloadElement.parentElement.replaceChild(cloneElement, sourceDownloadElement);
 
+    const title = getDownloadTitle();
+    const downloadUrl = getDownloadUrl();
+    if (!title || !downloadUrl) {
+        console.log('The download url or title is empty.');
+        cloneElement.innerHTML = '<b>不能下载</b>';
+        return;
+    }
+    cloneElement.href = downloadUrl;
+    cloneElement.title = downloadUrl;
+
     // 这样绑定的事件不能在控制台看到，真奇怪
     cloneElement.addEventListener('click', (evt => {
-        const title = getDownloadTitle();
-        const downloadUrl = getDownloadUrl();
-        if (!title || !downloadUrl) {
-            console.log('The download url or title is empty.');
-            this.innerHTML = '<b>不能下载</b>';
-            return;
-        }
-
         // 发送消息给扩展程序
         chrome.runtime.sendMessage({
             type: 'download',
