@@ -74,6 +74,7 @@ async function processDownloadUrl(message) {
         filename = message.filename;
     }
 
+    filename = filename.replaceAll(/[\/\\:*?"<>|]/g, '-');  // Windows特殊字符替换
     if (message.hasOwnProperty('path')) {
         if (typeof message.path === 'string') {
             filename = message.path + '\\' + filename;
