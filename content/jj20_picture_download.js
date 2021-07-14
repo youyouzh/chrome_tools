@@ -53,12 +53,14 @@ function readyDownloadImage(imageUrl, force=false) {
     console.log('ready download image: ' + imageUrl);
     document.getElementById('bigImg').src = imageUrl;
     let title = document.querySelector('div.tu-tit h1 span').innerText;
+    title = title.replace(/\([\d/]+\)/, '');
 
     // 发送消息给扩展程序
     chrome.runtime.sendMessage({
         type: 'download',
         url: imageUrl,
-        title: title.replace(/\([\d/]+\)/, ''),
+        path: 'jj20',
+        filename: title,
         force: force
     });
 }

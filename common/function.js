@@ -245,3 +245,25 @@ async function executeContentScript() {
             });
     });
 }
+
+/**
+ * 从下载地址中提取文件名称，包括扩展名称
+ * http://uusama.com/down.pdf 返回 down.pdf
+ *
+ * @param url url
+ * @returns {string} 文件名
+ */
+function getFilename(url) {
+    return url.split('/').pop();
+}
+
+/**
+ * 获取扩展名称
+ * http://uusama.com/down.pdf 返回 .pdf
+ *
+ * @param url url路径
+ * @returns {string} 文件扩展名，包括点
+ */
+function getExtension(url) {
+    return '.' + getFilename(url).split('.').pop();
+}

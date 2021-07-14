@@ -69,11 +69,20 @@ async function processDownloadUrl(message) {
     }
 
     // 支持相对路径，windows的”下载“文件夹下
-    let filename = message.url.split('/').pop();
-    if (message.hasOwnProperty('title')) {
-        filename = message.title + '-' + filename;
+    let filename = getFilename(message.url);
+    if (message.hasOwnProperty('filename')) {
+        filename = message.filename;
     }
-    filename = 'jj20\\' + filename;
+
+    if (message.hasOwnProperty('path')) {
+        if (typeof message.path === 'string') {
+            filename = message.path + '\\' + filename;
+        } else if (Array.isArray(message.path)) {
+            filename = message.path.join('\\') + '\\' + filename;
+        } else {
+            console.log('unknown path: ', message.path);
+        }
+    }
     console.log('begin download: ' + message.url + ', filename: ' + filename);
 
     // 通过地址下载文件
