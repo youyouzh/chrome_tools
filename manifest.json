@@ -59,6 +59,13 @@
 			"all_frames": true,
 			"match_about_blank": true,
 			"js": ["content/jj20_picture_download.js"]
+		},
+		{
+			"matches": ["*://*.j9p.com/*"],
+			"run_at": "document_idle",
+			"all_frames": true,
+			"match_about_blank": true,
+			"js": ["content/j9p.js"]
 		}
 	],
 	"permissions": [

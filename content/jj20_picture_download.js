@@ -60,7 +60,7 @@ function readyDownloadImage(imageUrl, force=false) {
         type: 'download',
         url: imageUrl,
         path: 'jj20',
-        filename: title,
+        filename: title + '-' + getFilename(imageUrl),
         force: force
     });
 }
