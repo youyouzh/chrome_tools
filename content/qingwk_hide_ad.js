@@ -6,6 +6,7 @@ function hideNotCareElements() {
     hideElement('.c-footer');       // 页面底部说明
     hideElement('.c-page-2021-entrance'); // 右侧固定栏
     hideElement('.c-footer-ad');     // 底部广告栏
+    hideElement('.c-footer-banner');     // 底部广告栏
 }
 
 function autoClickQuestion() {

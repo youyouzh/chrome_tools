@@ -38,11 +38,11 @@ async function copyCookie(domain) {
         document.execCommand('Copy');
 
         // 发送消息通知
-        chrome.notifications.create('cookie-copy', {
-            type: 'basic',
-            title: '复制Cookie成功',
-            message: '重构复制Cookie，域名： ' + domain,
-            iconUrl: '/image/icon_16.png',
-        });
+        // chrome.notifications.create('cookie-copy', {
+        //     type: 'basic',
+        //     title: '复制Cookie成功',
+        //     message: '重构复制Cookie，域名： ' + domain,
+        //     iconUrl: '/image/icon_128.png',
+        // });
     }
 }
