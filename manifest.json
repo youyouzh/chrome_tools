@@ -26,7 +26,7 @@
 	"options_page": "options.html",
 	"content_scripts": [
 		{
-			"matches": ["http://*/*", "https://*/*"],
+			"matches": ["*://*/*"],
 			"run_at": "document_idle",
 			"all_frames": true,
 			"match_about_blank": true,
@@ -37,28 +37,28 @@
 			"run_at": "document_idle",
 			"all_frames": true,
 			"match_about_blank": true,
-			"js": ["content/zhihu_hide_bar.js"]
+			"js": ["content/zhihu.js"]
 		},
 		{
-			"matches": ["https://www.sass.hk/docs/*", "https://www.sass.hk/*"],
+			"matches": ["*://www.sass.hk/*"],
 			"run_at": "document_idle",
 			"all_frames": true,
 			"match_about_blank": true,
-			"js": ["content/sass_bar_hide.js"]
+			"js": ["content/sass.hk.js"]
 		},
 		{
-			"matches": ["https://www.qingwk.com/*", "https://qingwk.com/*"],
+			"matches": ["*://*.qingwk.com/*"],
 			"run_at": "document_idle",
 			"all_frames": true,
 			"match_about_blank": true,
-			"js": ["content/qingwk_hide_ad.js"]
+			"js": ["content/qingwk.js"]
 		},
 		{
-			"matches": ["http://www.jj20.com/*", "https://www.jj20.com/*", "http://jj20.com/*"],
+			"matches": ["*://*.jj20.com/*"],
 			"run_at": "document_idle",
 			"all_frames": true,
 			"match_about_blank": true,
-			"js": ["content/jj20_picture_download.js"]
+			"js": ["content/jj20.js"]
 		},
 		{
 			"matches": ["*://*.j9p.com/*"],

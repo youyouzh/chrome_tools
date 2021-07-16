@@ -1,3 +1,8 @@
+/**
+ * 该脚本主要用来修改轻微课网站的体验
+ * 隐藏掉广告，弹窗等
+ * 自动聚焦到题目列表
+ */
 // 轻微课隐藏弹窗广告
 function hideNotCareElements() {
     hideElement('.c-course-view-top-wrap');  // 课程头部介绍
@@ -20,5 +25,3 @@ window.onload = function() {
     hideNotCareElements();
     autoClickQuestion();
 }
-
-// setInterval(hide_popup_ads, 100);
