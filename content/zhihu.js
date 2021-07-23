@@ -31,8 +31,8 @@ function hideHeaderAndSide() {
  */
 function optimiseUi() {
     // 修改内容宽度，免得只有中间一小条
-    querySelector('div.Question-main', (element) => element.style.width = '100%');
-    querySelector('div.Question-mainColumn', (element) => element.style.width = '100%');
+    querySelector('div.Question-main', (element) => element.style.width = '90%');
+    querySelector('div.Question-mainColumn', (element) => element.style.width = '90%');
 }
 
 /**
