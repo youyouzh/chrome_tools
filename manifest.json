@@ -66,7 +66,14 @@
 			"all_frames": true,
 			"match_about_blank": true,
 			"js": ["content/j9p.js"]
-		}
+		},
+    {
+      "matches": ["*://*.bilibili.com/*"],
+      "run_at": "document_idle",
+      "all_frames": true,
+      "match_about_blank": true,
+      "js": ["content/bilibili.js"]
+    }
 	],
 	"permissions": [
 		"storage", "activeTab", "scripting", "notifications", "downloads", "bookmarks", "contextMenus",

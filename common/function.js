@@ -267,3 +267,22 @@ function getFilename(url) {
 function getExtension(url) {
     return '.' + getFilename(url).split('.').pop();
 }
+
+/**
+ * 通过chrome扩展下载问卷，问卷保存在【下载】文件夹下面
+ *
+ * @param downloadUrl 完整的下载地址
+ * @param path 保存路径，如 j9q，文章则保存在【下载/j9q/】下面
+ * @param title 文件标题名称，不带后缀名，后缀名自动从下载地址中提取
+ * @param force 是否强制下载，如果文件已经下载过，则不会再重复下载，除非force = true
+ */
+function download(downloadUrl, path, title, force = false) {
+    const filename = !!title ? title + getExtension(downloadUrl) : getFilename(downloadUrl);
+    chrome.runtime.sendMessage({
+        type: 'download',
+        url: downloadUrl,
+        path: path,
+        filename: filename,
+        force: force
+    });
+}
