@@ -15,7 +15,7 @@
 		"service_worker": "background.js"
 	},
 	"action": {
-		"default_popup": "popup.html",
+		"default_popup": "page/popup.html",
 		"default_icon": {
 			"128": "image/icon_128.png",
 			"48": "image/icon_48.png",
@@ -23,7 +23,7 @@
 			"16": "image/icon_16.png"
 		}
 	},
-	"options_page": "options.html",
+	"options_page": "page/options.html",
 	"content_scripts": [
 		{
 			"matches": ["*://*/*"],
@@ -77,7 +77,7 @@
 	],
 	"permissions": [
 		"storage", "activeTab", "scripting", "notifications", "downloads", "bookmarks", "contextMenus",
-		"webNavigation", "cookies"
-	],
+		"webNavigation", "cookies", "webRequest"
+  ],
 	"homepage_url": "http://uusama.com"
 }
