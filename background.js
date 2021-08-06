@@ -11,6 +11,8 @@
  * 其次，服务工作者无权访问页面 DOM。
  * Service Worker 无法访问DOMParser API 或创建 iframe 来解析和遍历文档，可以通过 chrome.tabs.create() 创建新选项卡或使用库
  * 创建画布使用离线画布： const canvas = new OffscreenCanvas(width, height);
+ *
+ * 注意 manifest.json 中配置，在Chrome 93以前， service worker 必须在根目录
  */
 
 importScripts('common/function.js');
@@ -21,7 +23,7 @@ chrome.runtime.onInstalled.addListener(() => {
     console.log('on install event.');
 
     // 可以在这儿绑定右键菜单
-    // bindContextMenu();
+    bindContextMenu();
 });
 
 /**
@@ -46,11 +48,22 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     }
 });
 
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+    console.log('content menu');
+    console.log(info, tab);
+});
+
 function bindContextMenu() {
     chrome.contextMenus.create({
-        "id": "sampleContextMenu",
-        "title": "Sample Context Menu",
-        "contexts": ["selection"]
+        id: "download_image",
+        title: "下载",
+        contexts: ["all"]
+    });
+
+    chrome.contextMenus.create({
+        id: 'open',
+        title: 'opem',
+        contexts: ['all'],
     });
 }
 
