@@ -21,7 +21,5 @@ function autoClickQuestion() {
     }
 }
 
-window.onload = function() {
-    hideNotCareElements();
-    autoClickQuestion();
-}
+hideNotCareElements();
+autoClickQuestion();

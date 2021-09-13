@@ -16,7 +16,4 @@ function optimiseUI() {
     document.body.classList.remove('articleMaxH');
 }
 
-
-window.onload = () => {
-    optimiseUI();
-}
+optimiseUI();

@@ -12,3 +12,17 @@
 
 ### sass官网文档隐藏广告
 [sass官网文档](https://www.sass.hk/docs/)隐藏侧边栏广告
+
+## Content Script
+
+Content Script官方文档： <https://developer.chrome.com/docs/extensions/mv3/content_scripts/>。
+
+manifest.json关于content script配置项目：
+
+- matches: 匹配网址
+- js: 注入到网页中的js文件列表
+- match_about_blank： 是否匹配打开的空白页面
+- run_at： 运行时间，默认为`document_idle`，即页面加载完成
+  - document_start： dom还未加载
+  - document_end： dom加载完成，但是图片或者frames还未加载
+  - document_idle： dom加载完成，相当于window.onload，读取document.readyState

@@ -50,12 +50,10 @@ function restoreOriginUrl() {
     }
 }
 
-window.onload = function() {
-    restoreOriginUrl();
-    // hideZhihuBanner();
-    optimiseUi();
-    hideHeaderAndSide();
-}
+restoreOriginUrl();
+// hideZhihuBanner();
+optimiseUi();
+hideHeaderAndSide();
 
 window.onscroll = function () {
     hideHeaderAndSide();
