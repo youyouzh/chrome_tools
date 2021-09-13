@@ -34,45 +34,31 @@
 		},
 		{
 			"matches": ["*://*.zhihu.com/*"],
-			"run_at": "document_idle",
-			"all_frames": true,
-			"match_about_blank": true,
 			"js": ["content/zhihu.js"]
 		},
 		{
 			"matches": ["*://www.sass.hk/*"],
-			"run_at": "document_idle",
-			"all_frames": true,
-			"match_about_blank": true,
 			"js": ["content/sass.hk.js"]
 		},
 		{
 			"matches": ["*://*.qingwk.com/*"],
-			"run_at": "document_idle",
-			"all_frames": true,
-			"match_about_blank": true,
 			"js": ["content/qingwk.js"]
 		},
 		{
 			"matches": ["*://*.jj20.com/*"],
-			"run_at": "document_idle",
-			"all_frames": true,
-			"match_about_blank": true,
 			"js": ["content/jj20.js"]
 		},
 		{
 			"matches": ["*://*.j9p.com/*"],
-			"run_at": "document_idle",
-			"all_frames": true,
-			"match_about_blank": true,
 			"js": ["content/j9p.js"]
 		},
 		{
 			"matches": ["*://*.360doc.com/*"],
-			"run_at": "document_idle",
-			"all_frames": true,
-			"match_about_blank": true,
 			"js": ["content/360doc.js"]
+		},
+		{
+			"matches": ["*://*.fandom.com/*"],
+			"js": ["content/fandom.js"]
 		},
     {
       "matches": ["*://*.bilibili.com/*"],
