@@ -5,7 +5,9 @@
 
 function hideAd() {
     hideElement('.top-ads-container');
-    hideElement('#incontent_boxad_1')
+    hideElement('#incontent_boxad_1');
+    hideElement('.page__right-rail');
+    hideElement('.global-navigation');
 }
 
 setTimeout(hideAd, 500)
