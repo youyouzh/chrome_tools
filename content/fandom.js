@@ -5,9 +5,12 @@
 
 function hideAd() {
     hideElement('.top-ads-container');
+    hideElement('.bottom-ads-container');
     hideElement('#incontent_boxad_1');
+    hideElement('#mixed-content-footer');
     hideElement('.page__right-rail');
-    hideElement('.global-navigation');
+    hideElement('.wds-global-footer');
+    hideElement('#top_boxad');
 }
 
-setTimeout(hideAd, 500)
+setInterval(hideAd, 500);
