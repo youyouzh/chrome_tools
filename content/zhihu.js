@@ -36,7 +36,7 @@ function optimiseUi() {
 }
 
 /**
- * 知乎的链接挑战都会加一个中转，每次都要点一下，挺烦的，去掉
+ * 知乎的链接跳转都会加一个中转，每次都要点一下，挺烦的，去掉
  */
 function restoreOriginUrl() {
     const aElements = document.getElementsByTagName('a');
