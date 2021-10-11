@@ -19,10 +19,10 @@ function hideZhihuBanner() {
 }
 
 function hideHeaderAndSide() {
-    hideElement('header');          // 隐藏顶部菜单栏
-    hideElement('.PageHeader');          // 隐藏顶部菜单栏
+    // hideElement('header');          // 隐藏顶部菜单栏
+    // hideElement('.PageHeader');          // 隐藏顶部菜单栏
+    // hideElement('.QuestionHeader');      // 隐藏原问题
     hideElement('.Question-sideColumn'); // 隐藏右边栏：相关问题和相关推荐
-    hideElement('.QuestionHeader');      // 隐藏原问题
     hideElement('.Reward');   // 隐藏赞赏按钮
 }
 
@@ -40,7 +40,6 @@ function optimiseUi() {
  */
 function restoreOriginUrl() {
     const aElements = document.getElementsByTagName('a');
-    console.log(aElements);
     for (const aElement of aElements) {
         if (aElement.href.indexOf('https://link.zhihu.com/?target=') >= 0) {
             let sourceUrl = aElement.href.replace('https://link.zhihu.com/?target=', '');
@@ -57,4 +56,5 @@ hideHeaderAndSide();
 
 window.onscroll = function () {
     hideHeaderAndSide();
+    restoreOriginUrl();
 }
