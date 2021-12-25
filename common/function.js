@@ -220,7 +220,7 @@ function copyContent(content) {
     copyFrom.style.left = '-1000px';
     copyFrom.style.top = '-1000px';
     copyFrom.textContent = content;
-    document.append(copyFrom);
+    document.body.append(copyFrom);
     copyFrom.select();
     document.execCommand('copy');
 }

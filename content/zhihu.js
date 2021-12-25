@@ -49,6 +49,14 @@ function restoreOriginUrl() {
     }
 }
 
+document.onclick = () => {
+    const content = document.getSelection(0).toString();
+    if (content && content.length && content.length >= 2) {
+        console.log(document.getSelection());
+        copyContent(content);
+    }
+}
+
 restoreOriginUrl();
 // hideZhihuBanner();
 optimiseUi();
