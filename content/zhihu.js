@@ -74,7 +74,7 @@ window.onscroll = function () {
 
 setInterval(async () => {
     restoreOriginUrl();
-    const readMod = await _u_api.getStorage(_u_constant.storageKey.cookie);
+    const readMod = await _u_api.getStorage(_u_constant.storageKey.zhihuReadMod);
     if (readMod) {
         hideZhihuBanner();
         hideHeaderAndSide();

@@ -17,7 +17,7 @@ document.getElementById('copy-wumii-online-cookie').addEventListener('click', ()
 
 // 知乎阅读模式
 const zhihuReadModElement = document.getElementById('zhihu-read-mod');
-_u_api.getStorage(_u_constant.storageKey.zhihuReadMod).then(value => zhihuReadModElement.checked = !!value);
+_u_api.getStorage(_u_constant.storageKey.zhihuReadMod).then(value => zhihuReadModElement.checked = value);
 zhihuReadModElement.addEventListener('change', (event) => _u_api.setStorage(_u_constant.storageKey.zhihuReadMod, event.target.checked));
 
 async function copyCookie(domain) {

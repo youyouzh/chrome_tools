@@ -29,7 +29,7 @@ _u_api = {
                     return reject(chrome.runtime.lastError);
                 }
                 // Pass the data retrieved from storage down the promise chain.
-                resolve(items);
+                resolve(items[keys]);
             });
         });
     },
