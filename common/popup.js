@@ -15,6 +15,11 @@ document.getElementById('download-button').addEventListener("click", async () =>
 document.getElementById('copy-wumii-dev-cookie').addEventListener('click', () => copyCookie('admin.wumii.net'));
 document.getElementById('copy-wumii-online-cookie').addEventListener('click', () => copyCookie('admin-web.wumii.net'));
 
+// 知乎阅读模式
+const zhihuReadModElement = document.getElementById('zhihu-read-mod');
+_u_api.getStorage(_u_constant.storageKey.zhihuReadMod).then(value => zhihuReadModElement.checked = !!value);
+zhihuReadModElement.addEventListener('change', (event) => _u_api.setStorage(_u_constant.storageKey.zhihuReadMod, event.target.checked));
+
 async function copyCookie(domain) {
     const storageCookie = await _u_api.getStorage(_u_constant.storageKey.cookie);
     console.log(_u_constant.storageKey.cookie, storageCookie);

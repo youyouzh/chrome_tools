@@ -1,5 +1,8 @@
 
 function hideZhihuBanner() {
+    // 隐藏头部
+    hideElement('.AppHeader');
+
     // 隐藏答题人信息，但是显示多少赞，使用横线替换
     const contentItem_meta = document.getElementsByClassName('ContentItem-meta'),
         contentItem_action = document.getElementsByClassName('ContentItem-actions');
@@ -31,8 +34,8 @@ function hideHeaderAndSide() {
  */
 function optimiseUi() {
     // 修改内容宽度，免得只有中间一小条
-    querySelector('div.Question-main', (element) => element.style.width = '90%');
-    querySelector('div.Question-mainColumn', (element) => element.style.width = '90%');
+    querySelector('div.Question-main', (element) => element.style.width = '95%');
+    querySelector('div.Question-mainColumn', (element) => element.style.width = '95%');
 }
 
 /**
@@ -49,6 +52,9 @@ function restoreOriginUrl() {
     }
 }
 
+/**
+ * 选中即复制，突破知乎的复制禁用
+ */
 document.onclick = () => {
     const content = document.getSelection(0).toString();
     if (content && content.length && content.length >= 2) {
@@ -58,7 +64,6 @@ document.onclick = () => {
 }
 
 restoreOriginUrl();
-// hideZhihuBanner();
 optimiseUi();
 hideHeaderAndSide();
 
@@ -66,3 +71,12 @@ window.onscroll = function () {
     hideHeaderAndSide();
     restoreOriginUrl();
 }
+
+setInterval(async () => {
+    restoreOriginUrl();
+    const readMod = await _u_api.getStorage(_u_constant.storageKey.cookie);
+    if (readMod) {
+        hideZhihuBanner();
+        hideHeaderAndSide();
+    }
+}, 1000);
