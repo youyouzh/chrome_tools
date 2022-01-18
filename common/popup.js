@@ -23,9 +23,8 @@ zhihuReadModElement.addEventListener('change', (event) => _u_api.setStorage(_u_c
 async function copyCookie(domain) {
     const storageCookie = await _u_api.getStorage(_u_constant.storageKey.cookie);
     console.log(_u_constant.storageKey.cookie, storageCookie);
-    let cookies = storageCookie && storageCookie[_u_constant.storageKey.cookie] && storageCookie[_u_constant.storageKey.cookie][domain] || [];
+    let cookies = storageCookie && storageCookie[domain] || [];
     cookies = cookies.filter(cookie => _u_constant.cookie.careNames.indexOf(cookie.name) >= 0);
-
     if (!cookies.length) {
         // 不存在cookie，打开新页面
         chrome.tabs.create({

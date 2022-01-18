@@ -53,7 +53,7 @@ function CookieCache(cookies) {
 async function cookieChange(info) {
     const storageCookie = await _u_api.getStorage(_u_constant.storageKey.cookie);
 
-    const cookieCache = new CookieCache(storageCookie[_u_constant.storageKey.cookie]);
+    const cookieCache = new CookieCache(storageCookie);
     cookieCache.remove(info.cookie);
     if (info.removed) {
         return;

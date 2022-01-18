@@ -74,8 +74,7 @@ async function processDownloadUrl(message) {
         return;
     }
 
-    let cacheDownloadUrls = await _u_api.getStorage(_u_constant.storageKey.downloadUrls);
-    cacheDownloadUrls = cacheDownloadUrls && cacheDownloadUrls[_u_constant.storageKey.downloadUrls] || [];
+    let cacheDownloadUrls = await _u_api.getStorage(_u_constant.storageKey.downloadUrls) || [];
     if (cacheDownloadUrls.indexOf(message.url) >= 0 && !message.force) {
         console.log('The file has been download: ' + message.url);
         return;
