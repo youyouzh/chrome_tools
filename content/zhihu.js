@@ -27,6 +27,7 @@ function hideHeaderAndSide() {
     // hideElement('.QuestionHeader');      // 隐藏原问题
     hideElement('.Question-sideColumn'); // 隐藏右边栏：相关问题和相关推荐
     hideElement('.Reward');   // 隐藏赞赏按钮
+    hideElement('div.Sticky');   // 隐藏侧边栏
 }
 
 /**
@@ -72,11 +73,12 @@ window.onscroll = function () {
     restoreOriginUrl();
 }
 
-setInterval(async () => {
+setInterval(() => {
     restoreOriginUrl();
-    const readMod = await _u_api.getStorage(_u_constant.storageKey.zhihuReadMod);
-    if (readMod) {
-        hideZhihuBanner();
-        hideHeaderAndSide();
-    }
+     _u_api.getStorage(_u_constant.storageKey.zhihuReadMod).then((readMod) => {
+         if (readMod) {
+             hideZhihuBanner();
+             hideHeaderAndSide();
+         }
+     });
 }, 1000);
