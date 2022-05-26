@@ -60,6 +60,10 @@
 			"matches": ["*://*.fandom.com/*"],
 			"js": ["content/fandom.js"]
 		},
+		{
+			"matches": ["*://*/*"],
+			"js": ["content/hsck.js"]
+		},
     {
       "matches": ["*://*.bilibili.com/*"],
       "run_at": "document_idle",
