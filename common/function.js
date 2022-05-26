@@ -8,7 +8,8 @@
 _u_constant = {
     storageKey: {
         downloadUrls: '_u_download_urls',
-        cookie: '_u_cookie_cache'
+        cookie: '_u_cookie_cache',
+        zhihuReadMod: "_u_zhihu_read_mod"
     },
     cookie: {
         cacheDomains: ['admin.wumii.net', 'admin-web.wumii.net'],
@@ -28,7 +29,7 @@ _u_api = {
                     return reject(chrome.runtime.lastError);
                 }
                 // Pass the data retrieved from storage down the promise chain.
-                resolve(items);
+                resolve(items[keys]);
             });
         });
     },
@@ -215,6 +216,7 @@ function focusOrCreateTab(url) {
  * @param content 复制的内容
  */
 function copyContent(content) {
+    // navigator.clipboard.write(content);
     const copyFrom = document.createElement('textarea');
     copyFrom.style.position = 'absolute';
     copyFrom.style.left = '-1000px';
