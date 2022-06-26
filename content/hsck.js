@@ -20,13 +20,17 @@ function extractVideoUrl() {
 
 // 隐藏广告
 function hideAd() {
-    const homeAdElement = document.querySelector('body > div');
-    if (homeAdElement.childElementCount >= 20) {
-        homeAdElement.style.display = 'none';
+    const titleElement = document.querySelector('head > title');
+    // 通过title判断是否是指定网站，这个网站经常换域名
+    if (!!titleElement && titleElement.innerText.search('黄色仓库') >= 0) {
+        const homeAdElement = document.querySelector('body > div');
+        if (homeAdElement.childElementCount >= 20) {
+            homeAdElement.style.display = 'none';
+        }
     }
 }
 
-// hideAd();
+hideAd();
 setTimeout(() => {
     extractVideoUrl();
 }, 500);
