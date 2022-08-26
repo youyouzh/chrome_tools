@@ -1,4 +1,9 @@
-
+/**
+ * 该脚本用于优化知乎网站UI
+ * 屏蔽掉无用的内容，比如侧边栏广告，还有嵌入的连接广告等
+ * 自动提取跳转链接地址并自动替换，避免跳转中转
+ * 突破知乎的复制限制，选中后立刻复制
+ */
 function hideAppHeadAndAction() {
     // 隐藏头部
     hideElement('.AppHeader');
@@ -25,6 +30,7 @@ function optimiseUi() {
     querySelector('div.Question-mainColumn', (element) => element.style.width = '95%');
     hideElement('div.Sticky.is-fixed');   // 隐藏侧边栏
     hideElement('.Reward');               // 隐藏赞赏按钮
+    hideElement('button.FollowButton');      // 隐藏关注按钮
     hideElement('div.Question-sideColumn');  // 隐藏右边栏：相关问题和相关推荐
     hideElement('div.ShareMenu');  // 隐藏分享按钮
     hideElement('div.ContentItem-action.Popover');  // 隐藏更多按钮

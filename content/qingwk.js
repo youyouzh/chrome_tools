@@ -8,6 +8,7 @@ function hideNotCareElements() {
     hideElement('.c-course-view-top-wrap');  // 课程头部介绍
     hideElement('.c-meiqia');  // 弹窗广告
     hideElement('.qwk-kf-button');  // 客服图标
+    hideElement('iframe');  // 客服iframe
     hideElement('.c-footer');       // 页面底部说明
     hideElement('.c-page-2021-entrance'); // 右侧固定栏
     hideElement('.c-footer-ad');     // 底部广告栏
@@ -23,3 +24,10 @@ function autoClickQuestion() {
 
 hideNotCareElements();
 autoClickQuestion();
+
+setTimeout(() => {
+    autoClickQuestion();
+    hideNotCareElements();
+}, 1000)
+
+setInterval(() => hideNotCareElements(), 1000);
