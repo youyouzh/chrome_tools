@@ -26,3 +26,10 @@ manifest.json关于content script配置项目：
   - document_start： dom还未加载
   - document_end： dom加载完成，但是图片或者frames还未加载
   - document_idle： dom加载完成，相当于window.onload，读取document.readyState
+
+## chrome插件地址
+
+- windows xp中chrome插件默认安装目录位置: `C:\Documents and Settings\用户名\Local Settings\Application Data\Google\Chrome\User Data\Default\Extensions`
+- windows7中chrome插件默认安装目录位置: `C:\Users\用户名\AppData\Local\Google\Chrome\User Data\Default\Extensions`
+- MAC中chrome插件默认安装目录位置: `~/Library/Application Support/Google/Chrome/Default/Extensions`
+- Ubuntu中chrome插件默认安装目录位置: ` ~/.config/google-chrome/Default/Extensions`
