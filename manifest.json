@@ -61,6 +61,10 @@
 			"js": ["content/fandom.js"]
 		},
 		{
+			"matches": ["*://*.xvideos.com/*"],
+			"js": ["content/xvideos.js"]
+		},
+		{
 			"matches": ["*://*/*"],
 			"js": ["content/hsck.js"]
 		},
@@ -76,5 +80,6 @@
 		"storage", "activeTab", "scripting", "notifications", "downloads", "bookmarks", "contextMenus",
 		"webNavigation", "cookies", "webRequest"
   ],
+	"host_permissions": ["<all_urls>"],
 	"homepage_url": "http://uusama.com"
 }

@@ -43,8 +43,12 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
         return;
     }
 
-    if (message.type === 'download') {
+    if (message.type === _u_constant.messageType.downloadTask) {
         processDownloadUrl(message);
+    }
+
+    if (message.type === _u_constant.messageType.xvideosTitle) {
+        _u_api.setStorage(_u_constant.storageKey.xvideosTitle, message.title)
     }
 });
 
@@ -52,6 +56,16 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     console.log('content menu');
     console.log(info, tab);
 });
+
+// 监听网络请求
+chrome.webRequest.onHeadersReceived.addListener(function (detail) {
+    // 请求地址中包含 .m3u8
+    if (detail.url.match(/(\.m3u8)/)) {
+        console.log('found m3u8 url: ' + detail.url);
+        // TODO: 处理多视频源
+        _u_api.setStorage(_u_constant.storageKey.m3u8Url, detail.url)
+    }
+}, {urls: ["<all_urls>"]}, ["responseHeaders"]);
 
 function bindContextMenu() {
     chrome.contextMenus.create({

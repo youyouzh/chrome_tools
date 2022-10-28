@@ -2,6 +2,14 @@
  * popup.js
  */
 
+function copyContent(content) {
+    const contentElement = document.getElementById('copy-content');
+    contentElement.value = content;
+    contentElement.textContent = content;
+    contentElement.select();
+    document.execCommand('Copy');
+}
+
 document.getElementById('download-button').addEventListener("click", async () => {
     // 下载文件
     // for (const downloadUrl of downloadUrls) {
@@ -12,8 +20,16 @@ document.getElementById('download-button').addEventListener("click", async () =>
     // }
 });
 
-document.getElementById('copy-wumii-dev-cookie').addEventListener('click', () => copyCookie('admin.wumii.net'));
-document.getElementById('copy-wumii-online-cookie').addEventListener('click', () => copyCookie('admin-web.wumii.net'));
+document.getElementById('copy-cookie').addEventListener('click', () => copyCookie('admin-web.wumii.net'));
+document.getElementById('copy-m3u8-message').addEventListener('click', async () => {
+    let cacheTitle = await _u_api.getStorage(_u_constant.storageKey.xvideosTitle);
+    cacheTitle += '';
+    cacheTitle = cacheTitle.replace(/[\\/?*<>|":]+/, '-');
+    const cacheUrl = await _u_api.getStorage(_u_constant.storageKey.m3u8Url);
+    const content = `download_with_m3u8_url('${cacheTitle}', '${cacheUrl}')`;
+    console.log('copy content: ' + content);
+    copyContent(content);
+});
 
 // 知乎阅读模式
 const zhihuReadModElement = document.getElementById('zhihu-read-mod');
@@ -34,13 +50,8 @@ async function copyCookie(domain) {
             // chrome.tabs.remove(tab.id);
         })
     } else {
-        const contentElement = document.getElementById('copy-content');
-        const copyContent = cookies[0].name + '=' + cookies[0].value;
-        contentElement.value = copyContent;
-        contentElement.textContent = copyContent;
-        contentElement.select();
-        document.execCommand('Copy');
-
+        const content = cookies[0].name + '=' + cookies[0].value;
+        copyContent(content);
         // 发送消息通知
         // chrome.notifications.create('cookie-copy', {
         //     type: 'basic',
