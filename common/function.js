@@ -9,11 +9,17 @@ _u_constant = {
     storageKey: {
         downloadUrls: '_u_download_urls',
         cookie: '_u_cookie_cache',
-        zhihuReadMod: "_u_zhihu_read_mod"
+        zhihuReadMod: "_u_zhihu_read_mod",
+        m3u8Url: '_u_m3u8_url',
+        xvideosTitle: '_u_xvideos_title'
     },
     cookie: {
         cacheDomains: ['admin.wumii.net', 'admin-web.wumii.net'],
         careNames: ['gssapi_session', 'mod_auth_openidc_session']
+    },
+    messageType: {
+        xvideosTitle: '_u_event_xvideos_title',
+        downloadTask: '_u_download_task'
     }
 };
 

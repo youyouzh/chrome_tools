@@ -27,6 +27,8 @@ function hideAd() {
         if (homeAdElement.childElementCount >= 20) {
             homeAdElement.style.display = 'none';
         }
+
+        hideElement('div.stui-warp-content > div:nth-child(2) > a');
     }
 }
 

@@ -57,7 +57,7 @@ function readyDownloadImage(imageUrl, force=false) {
 
     // 发送消息给扩展程序
     chrome.runtime.sendMessage({
-        type: 'download',
+        type: _u_constant.messageType.downloadTask,
         url: imageUrl,
         path: 'jj20',
         filename: title + '-' + getFilename(imageUrl),
