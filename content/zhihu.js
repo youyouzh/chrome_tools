@@ -31,6 +31,7 @@ function optimiseUi() {
     hideElement('div.Sticky.is-fixed');   // 隐藏侧边栏
     hideElement('.Reward');               // 隐藏赞赏按钮
     hideElement('button.FollowButton');      // 隐藏关注按钮
+    hideElement('div.QuestionHeader-side');  // 隐藏顶部侧边栏，【提问问题】和【关注问题】
     hideElement('div.Question-sideColumn');  // 隐藏右边栏：相关问题和相关推荐
     hideElement('div.ShareMenu');  // 隐藏分享按钮
     hideElement('div.ContentItem-action.Popover');  // 隐藏更多按钮

@@ -65,6 +65,10 @@
 			"js": ["content/xvideos.js"]
 		},
 		{
+			"matches": ["*://*.blog.csdn.net/*"],
+			"js": ["content/csdn.js"]
+		},
+		{
 			"matches": ["*://*/*"],
 			"js": ["content/hsck.js"]
 		},
