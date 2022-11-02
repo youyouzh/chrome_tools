@@ -32,25 +32,17 @@ document.getElementById('copy-m3u8-message').addEventListener('click', async () 
         const tabId = currentTab.id;
         let cacheTitles = await _u_api.getStorage(_u_constant.storageKey.xvideosTitles) || {};
         const cacheUrls = await _u_api.getStorage(_u_constant.storageKey.videoUrls) || {};
-        if (cacheTitles.hasOwnProperty(tabId) && cacheUrls.hasOwnProperty(tabId)) {
+        if (cacheTitles.hasOwnProperty(tabId) && cacheUrls.hasOwnProperty(tabId) && cacheUrls[tabId].length > 0) {
             let cacheTitle = cacheTitles[tabId]['title'];
             cacheTitle = cacheTitle.replace(/[\\/?*<>|":]+/, '-');
-            const currentCacheUrls = cacheUrls[tabId];
 
             // 选一个最高清晰度
-            let matchUrl = '';
-            for (const item of currentCacheUrls) {
-                const videoUrl = item['m3u8Url'];
-                if (videoUrl.indexOf('1080p') >= 0) {
-                    matchUrl = videoUrl;
-                    break;
-                } else if (videoUrl.indexOf('720p')) {
-                    matchUrl = videoUrl;
-                    break;
-                } else {
-                    matchUrl = videoUrl;
-                }
-            }
+            const currentCacheUrls = cacheUrls[tabId].map(v => v['m3u8Url']).sort((x, y) => {
+                const xx = x.indexOf('1080p') >= 0 ? 100 : (x.indexOf('720p') >= 0 ? 10 : 0);
+                const yy = y.indexOf('1080p') >= 0 ? 100 : (y.indexOf('720p') >= 0 ? 10 : 0);
+                return yy - xx;
+            });
+            let matchUrl = currentCacheUrls[0];
 
             const content = `download_with_m3u8_url('${cacheTitle}', '${matchUrl}')`;
             console.log('copy content: ' + content);
