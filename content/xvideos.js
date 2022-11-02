@@ -11,7 +11,8 @@ function extractVideoTitle() {
 
   chrome.runtime.sendMessage({
     type: _u_constant.messageType.xvideosTitle,
-    title: titleElement.innerText
+    title: titleElement.innerText,
+    url: window.location.href
   });
 }
 

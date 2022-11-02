@@ -10,8 +10,8 @@ _u_constant = {
         downloadUrls: '_u_download_urls',
         cookie: '_u_cookie_cache',
         zhihuReadMod: "_u_zhihu_read_mod",
-        m3u8Url: '_u_m3u8_url',
-        xvideosTitle: '_u_xvideos_title'
+        videoUrls: '_u_video_urls',
+        xvideosTitles: '_u_xvideos_titles'
     },
     cookie: {
         cacheDomains: ['admin.wumii.net', 'admin-web.wumii.net'],

@@ -22,13 +22,43 @@ document.getElementById('download-button').addEventListener("click", async () =>
 
 document.getElementById('copy-cookie').addEventListener('click', () => copyCookie('admin-web.wumii.net'));
 document.getElementById('copy-m3u8-message').addEventListener('click', async () => {
-    let cacheTitle = await _u_api.getStorage(_u_constant.storageKey.xvideosTitle);
-    cacheTitle += '';
-    cacheTitle = cacheTitle.replace(/[\\/?*<>|":]+/, '-');
-    const cacheUrl = await _u_api.getStorage(_u_constant.storageKey.m3u8Url);
-    const content = `download_with_m3u8_url('${cacheTitle}', '${cacheUrl}')`;
-    console.log('copy content: ' + content);
-    copyContent(content);
+    // 当前激活tab
+    chrome.tabs.query({active: true, currentWindow: true}, async function(tabs) {
+        const currentTab = tabs[0];
+        if (!currentTab) {
+            console.log('cannot get current tab.');
+            return false;
+        }
+        const tabId = currentTab.id;
+        let cacheTitles = await _u_api.getStorage(_u_constant.storageKey.xvideosTitles) || {};
+        const cacheUrls = await _u_api.getStorage(_u_constant.storageKey.videoUrls) || {};
+        if (cacheTitles.hasOwnProperty(tabId) && cacheUrls.hasOwnProperty(tabId)) {
+            let cacheTitle = cacheTitles[tabId]['title'];
+            cacheTitle = cacheTitle.replace(/[\\/?*<>|":]+/, '-');
+            const currentCacheUrls = cacheUrls[tabId];
+
+            // 选一个最高清晰度
+            let matchUrl = '';
+            for (const item of currentCacheUrls) {
+                const videoUrl = item['m3u8Url'];
+                if (videoUrl.indexOf('1080p') >= 0) {
+                    matchUrl = videoUrl;
+                    break;
+                } else if (videoUrl.indexOf('720p')) {
+                    matchUrl = videoUrl;
+                    break;
+                } else {
+                    matchUrl = videoUrl;
+                }
+            }
+
+            const content = `download_with_m3u8_url('${cacheTitle}', '${matchUrl}')`;
+            console.log('copy content: ' + content);
+            copyContent(content);
+        } else {
+            console.error('There are not any cache title and video url. tabId: {}', tabId);
+        }
+    });
 });
 
 // 知乎阅读模式

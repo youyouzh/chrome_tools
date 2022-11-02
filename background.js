@@ -36,19 +36,28 @@ chrome.runtime.onInstalled.addListener(() => {
  * 以type区分类型
  * type: download - 下载任务
  */
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(async function(message, sender, sendResponse) {
     console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
     if (!message.type) {
-        console.log("please set the type param, when you send message.");
+        console.log("please set the message type. message: {}", message);
         return;
     }
 
     if (message.type === _u_constant.messageType.downloadTask) {
-        processDownloadUrl(message);
+        await processDownloadUrl(message);
     }
 
     if (message.type === _u_constant.messageType.xvideosTitle) {
-        _u_api.setStorage(_u_constant.storageKey.xvideosTitle, message.title)
+        let cacheTitles = await _u_api.getStorage(_u_constant.storageKey.xvideosTitles);
+
+        // 兼容处理和初始化
+        if (!cacheTitles || typeof cacheTitles !== 'object') {
+            cacheTitles = {};
+        }
+
+        console.log('add cacheTitle: ', message);
+        cacheTitles[sender.tab.id] = message;
+        await _u_api.setStorage(_u_constant.storageKey.xvideosTitles, cacheTitles)
     }
 });
 
@@ -58,12 +67,30 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 });
 
 // 监听网络请求
-chrome.webRequest.onHeadersReceived.addListener(function (detail) {
+chrome.webRequest.onHeadersReceived.addListener(async function (detail) {
     // 请求地址中包含 .m3u8
     if (detail.url.match(/(\.m3u8)/)) {
-        console.log('found m3u8 url: ' + detail.url);
-        // TODO: 处理多视频源
-        _u_api.setStorage(_u_constant.storageKey.m3u8Url, detail.url)
+        let videoUrls = await _u_api.getStorage(_u_constant.storageKey.videoUrls);
+
+        // 兼容处理和初始化
+        if (!videoUrls || typeof videoUrls !== 'object') {
+            videoUrls = {};
+        }
+
+        // 检查当前tab的视频地址，初始化
+        if (!videoUrls.hasOwnProperty(detail.tabId) || !videoUrls[detail.tabId]) {
+            videoUrls[detail.tabId] = [];
+        }
+
+        // 加入当前tab页面下载地址
+        const videoInfo = {
+            m3u8Url: detail.url,
+            tabId: detail.tabId,
+            requestId: detail.requestId
+        }
+        console.log('push video info.', videoInfo);
+        videoUrls[detail.tabId].push(videoInfo);
+        await _u_api.setStorage(_u_constant.storageKey.videoUrls, videoUrls);
     }
 }, {urls: ["<all_urls>"]}, ["responseHeaders"]);
 
