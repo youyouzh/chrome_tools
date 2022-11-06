@@ -70,6 +70,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 chrome.webRequest.onHeadersReceived.addListener(async function (detail) {
     // 请求地址中包含 .m3u8
     if (detail.url.match(/(\.m3u8)/)) {
+        console.log('catch m3u8 url: ', detail.url);
         let videoUrls = await _u_api.getStorage(_u_constant.storageKey.videoUrls);
 
         // 兼容处理和初始化
@@ -80,6 +81,11 @@ chrome.webRequest.onHeadersReceived.addListener(async function (detail) {
         // 检查当前tab的视频地址，初始化
         if (!videoUrls.hasOwnProperty(detail.tabId) || !videoUrls[detail.tabId]) {
             videoUrls[detail.tabId] = [];
+        }
+
+        if (detail.tabId <= 0) {
+            console.log('tabId is not valid.');
+            return false;
         }
 
         // 加入当前tab页面下载地址

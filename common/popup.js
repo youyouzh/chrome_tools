@@ -48,7 +48,7 @@ document.getElementById('copy-m3u8-message').addEventListener('click', async () 
             console.log('copy content: ' + content);
             copyContent(content);
         } else {
-            console.error('There are not any cache title and video url. tabId: {}', tabId);
+            console.log('There are not any cache title and video url. tabId: {}', tabId);
         }
     });
 });

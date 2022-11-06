@@ -19,6 +19,7 @@ _u_constant = {
     },
     messageType: {
         xvideosTitle: '_u_event_xvideos_title',
+        m3u8UrlCheck: '_u_event_m3u8UrlCheck',
         downloadTask: '_u_download_task'
     }
 };
