@@ -46,19 +46,6 @@ chrome.runtime.onMessage.addListener(async function(message, sender, sendRespons
     if (message.type === _u_constant.messageType.downloadTask) {
         await processDownloadUrl(message);
     }
-
-    if (message.type === _u_constant.messageType.xvideosTitle) {
-        let cacheTitles = await _u_api.getStorage(_u_constant.storageKey.xvideosTitles);
-
-        // 兼容处理和初始化
-        if (!cacheTitles || typeof cacheTitles !== 'object') {
-            cacheTitles = {};
-        }
-
-        console.log('add cacheTitle: ', message);
-        cacheTitles[sender.tab.id] = message;
-        await _u_api.setStorage(_u_constant.storageKey.xvideosTitles, cacheTitles)
-    }
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
@@ -66,21 +53,23 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     console.log(info, tab);
 });
 
-// 监听网络请求
+/**
+ * 监听网络请求，拦截一些关心的url数据
+ */
 chrome.webRequest.onHeadersReceived.addListener(async function (detail) {
     // 请求地址中包含 .m3u8
     if (detail.url.match(/(\.m3u8)/)) {
         console.log('catch m3u8 url: ', detail.url);
-        let videoUrls = await _u_api.getStorage(_u_constant.storageKey.videoUrls);
+        let m3u8Videos = await _u_api.getStorage(_u_constant.storageKey.m3u8Videos);
 
         // 兼容处理和初始化
-        if (!videoUrls || typeof videoUrls !== 'object') {
-            videoUrls = {};
+        if (!m3u8Videos || typeof m3u8Videos !== 'object') {
+            m3u8Videos = {};
         }
 
         // 检查当前tab的视频地址，初始化
-        if (!videoUrls.hasOwnProperty(detail.tabId) || !videoUrls[detail.tabId]) {
-            videoUrls[detail.tabId] = [];
+        if (!m3u8Videos.hasOwnProperty(detail.tabId) || !m3u8Videos[detail.tabId]) {
+            m3u8Videos[detail.tabId] = [];
         }
 
         if (detail.tabId <= 0) {
@@ -89,16 +78,28 @@ chrome.webRequest.onHeadersReceived.addListener(async function (detail) {
         }
 
         // 加入当前tab页面下载地址
-        const videoInfo = {
+        const m3u8Video = {
+            type: _u_constant.messageType.m3u8UrlAttach,
             m3u8Url: detail.url,
             tabId: detail.tabId,
+            initiator: detail.initiator,
             requestId: detail.requestId
         }
-        console.log('push video info.', videoInfo);
-        videoUrls[detail.tabId].push(videoInfo);
-        await _u_api.setStorage(_u_constant.storageKey.videoUrls, videoUrls);
+        console.log('receive m3u8 video.', m3u8Video);
+        m3u8Videos[detail.tabId].push(m3u8Video);
+        // url去重
+        const tempMap = new Map();
+        m3u8Videos[detail.tabId] = m3u8Videos[detail.tabId].filter(item => !tempMap.has(item.m3u8Url) && tempMap.set(item.m3u8Url, 1));
+        await _u_api.setStorage(_u_constant.storageKey.m3u8Videos, m3u8Videos);
     }
 }, {urls: ["<all_urls>"]}, ["responseHeaders"]);
+
+/**
+ * 将tabId保存，方便 content_script 获取
+ */
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+    await _u_api.setStorage(_u_constant.storageKey.activeTabId, tabId);
+});
 
 function bindContextMenu() {
     chrome.contextMenus.create({

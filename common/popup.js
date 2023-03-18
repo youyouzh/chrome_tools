@@ -30,21 +30,17 @@ document.getElementById('copy-m3u8-message').addEventListener('click', async () 
             return false;
         }
         const tabId = currentTab.id;
-        let cacheTitles = await _u_api.getStorage(_u_constant.storageKey.xvideosTitles) || {};
-        const cacheUrls = await _u_api.getStorage(_u_constant.storageKey.videoUrls) || {};
-        if (cacheTitles.hasOwnProperty(tabId) && cacheUrls.hasOwnProperty(tabId) && cacheUrls[tabId].length > 0) {
-            let cacheTitle = cacheTitles[tabId]['title'];
-            cacheTitle = cacheTitle.replace(/[\\/?*<>|":]+/, '-');
-
+        const m3u8Videos = await _u_api.getStorage(_u_constant.storageKey.m3u8Videos) || {};
+        if (m3u8Videos.hasOwnProperty(tabId) && m3u8Videos[tabId].length > 0) {
             // 选一个最高清晰度
-            const currentCacheUrls = cacheUrls[tabId].map(v => v['m3u8Url']).sort((x, y) => {
-                const xx = x.indexOf('1080p') >= 0 ? 100 : (x.indexOf('720p') >= 0 ? 10 : 0);
-                const yy = y.indexOf('1080p') >= 0 ? 100 : (y.indexOf('720p') >= 0 ? 10 : 0);
+            const bestVideo = m3u8Videos[tabId].sort((x, y) => {
+                const xx = x['m3u8Url'].indexOf('1080p') >= 0 ? 100 : (x['m3u8Url'].indexOf('720p') >= 0 ? 10 : 0);
+                const yy = y['m3u8Url'].indexOf('1080p') >= 0 ? 100 : (y['m3u8Url'].indexOf('720p') >= 0 ? 10 : 0);
                 return yy - xx;
-            });
-            let matchUrl = currentCacheUrls[0];
+            })[0];
+            let useTitle = ('' + bestVideo['title']).replace(/[\\/?*<>|":]+/, '-');
 
-            const content = `download_with_m3u8_url('${cacheTitle}', '${matchUrl}')`;
+            const content = `download_with_m3u8_url('${useTitle}', '${bestVideo['m3u8Url']}')`;
             console.log('copy content: ' + content);
             copyContent(content);
         } else {

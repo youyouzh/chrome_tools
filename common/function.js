@@ -9,17 +9,16 @@ _u_constant = {
     storageKey: {
         downloadUrls: '_u_download_urls',
         cookie: '_u_cookie_cache',
+        activeTabId: '_u_active_tab_id',
         zhihuReadMod: "_u_zhihu_read_mod",
-        videoUrls: '_u_video_urls',
-        xvideosTitles: '_u_xvideos_titles'
+        m3u8Videos: '_u_m3u8_videos'
     },
     cookie: {
         cacheDomains: ['admin.wumii.net', 'admin-web.wumii.net'],
         careNames: ['gssapi_session', 'mod_auth_openidc_session']
     },
     messageType: {
-        xvideosTitle: '_u_event_xvideos_title',
-        m3u8UrlCheck: '_u_event_m3u8UrlCheck',
+        m3u8UrlAttach: '_u_m3u8_url_attach',
         downloadTask: '_u_download_task'
     }
 };
