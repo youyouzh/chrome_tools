@@ -1,9 +1,12 @@
 /**
- * 该脚本主要用来提取视频标题，试用网站如下
+ * 该脚本主要用来提取m3u8视频，适用网站如下
  * - xvideos.com
+ * - pornlulu.com
+ * - pornhub.com
  * https://www.pornlulu.com/
  */
 
+// 记录视频标题
 async function recordTitle(titleElement) {
   const m3u8Videos = await _u_api.getStorage(_u_constant.storageKey.m3u8Videos);
   const activeTabId = await _u_api.getStorage(_u_constant.storageKey.activeTabId);
@@ -12,6 +15,9 @@ async function recordTitle(titleElement) {
     return;
   }
   m3u8Videos[activeTabId] = m3u8Videos[activeTabId].map(v => {
+    if (v['m3u8Url'].indexOf('master.m3u8') >= 0) {
+      return
+    }
     v['title'] = titleElement.innerText;
     titleElement.append('【' + v['m3u8Url'] + '】')
     return v;
@@ -19,29 +25,22 @@ async function recordTitle(titleElement) {
   console.log('------->videos:', m3u8Videos[activeTabId]);
 }
 
-// for xvideos.com
-function extractVideoTitleFromXVideos() {
-  const titleElement = document.querySelector('#main > h2.page-title');
-  if (!titleElement) {
-    console.log('Can not find title element.');
-    return "";
-  }
-  recordTitle(titleElement);
-}
-
-// for https://www.pornlulu.com/
-function extractVideoTitleFromPornLuLu() {
-  const titleElement = document.querySelector('h1.title');
-  if (!titleElement) {
-    console.log('Can not find title element.');
-    return "";
-  }
-  recordTitle(titleElement);
+const titleElementSelectors = {
+  'xvideo.com': '#main > h2.page-title',
+  'pornlulu.com': 'h1.title',
+  'pornhub.com': 'h1.title',
 }
 
 function extractVideoTitle() {
-  extractVideoTitleFromXVideos();
-  extractVideoTitleFromPornLuLu();
+  for (const website in titleElementSelectors) {
+    const titleElement = document.querySelector(titleElementSelectors[website]);
+    if (!titleElement) {
+      console.log('Can not find title element: ', website);
+      continue;
+    }
+    recordTitle(titleElement);
+    return;
+  }
 }
 
 setTimeout(extractVideoTitle, 2000);
