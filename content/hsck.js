@@ -5,7 +5,6 @@
 function extractVideoUrl() {
     const videoScriptElement = document.querySelector('div.stui-player__video > script:nth-child(1)');
     if (!videoScriptElement) {
-        console.log('The video script element is not exist');
         return;
     }
     const playerInfo = JSON.parse(videoScriptElement.innerText.substr(16));

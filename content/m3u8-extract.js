@@ -29,6 +29,7 @@ const titleElementSelectors = {
   'xvideo.com': '#main > h2.page-title',
   'pornlulu.com': 'h1.title',
   'pornhub.com': 'h1.title',
+  'jable.tv': 'div.header-left > h4'
 }
 
 function extractVideoTitle() {

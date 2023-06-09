@@ -61,7 +61,7 @@
 			"js": ["content/fandom.js"]
 		},
 		{
-			"matches": ["*://*.xvideos.com/*", "*://*.pornlulu.com/*", "*://*.pornhub.com/*"],
+			"matches": ["*://*.xvideos.com/*", "*://*.pornlulu.com/*", "*://*.pornhub.com/*", "*://*.jable.tv/*"],
 			"js": ["content/m3u8-extract.js"]
 		},
 		{
