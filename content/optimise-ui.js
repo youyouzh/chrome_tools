@@ -33,18 +33,35 @@ function optimiseUiFor360Doc() {
     document.body.classList.remove('articleMaxH');
 }
 
+function optimiseUiForTopHub() {
+    // 隐藏顶部导航栏
+    hideElement('div#appbar');
+    hideElement('div#tabbar');
+    hideElement('div.cq');
+    hideElement('div.alert');
+
+    // 隐藏热卖广告
+    hideElement('div.bc > div:nth-child(1)');
+    hideElement('div.bc > div:nth-child(2)');
+}
+
 const dispatcherMap = {
     'saas.hk/': hideSaasHkAd,
     'fandom.com/': hideFandomAd,
-    '360doc.com/': optimiseUiFor360Doc
+    '360doc.com/': optimiseUiFor360Doc,
+    'tophub.today/': optimiseUiForTopHub
 }
 
 function optimiseUiDispatcher() {
     const current_url = document.location.href;
-    Objects.keys(dispatcherMap).filter(v => current_url.indexOf(v) >= 0)
-        .map(v => dispatcherMap[v]());
+    for (const website in dispatcherMap) {
+        if (current_url.indexOf(website) >= 0) {
+            console.log('optimise ui for website: ' + website);
+            dispatcherMap[website]();
+        }
+    }
 }
 
-setInterval(() => {
+setTimeout(() => {
     optimiseUiDispatcher();
 }, 500);

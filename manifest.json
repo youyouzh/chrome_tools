@@ -49,7 +49,7 @@
 			"js": ["content/j9p.js"]
 		},
 		{
-			"matches": ["*://*.fandom.com/*", "*://*.360doc.com/*", "*://www.sass.hk/*"],
+			"matches": ["*://*.fandom.com/*", "*://*.360doc.com/*", "*://www.sass.hk/*", "*://tophub.today/*"],
 			"js": ["content/optimise-ui.js"]
 		},
 		{
