@@ -21,4 +21,14 @@ function extractSourceImageUrl() {
     }
 }
 
+function optimiseCopy() {
+    // 去除复制后的copyright小尾巴
+    document.querySelectorAll('*').forEach(item => {
+        item.oncopy = function (e) {
+            e.stopPropagation();
+        }
+    });
+}
+
 extractSourceImageUrl();
+optimiseCopy();

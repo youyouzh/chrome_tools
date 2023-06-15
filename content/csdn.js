@@ -12,5 +12,35 @@ function hideLoginPopUp() {
     hideElement('div.passport-login-container');
 }
 
+// 突破登录才能复制代码
+function crackLoginCopy() {
+    // 控制台输出: javascript:document.body.contentEditable='true';document.designMode='on'; void 0
+    // document.body.contentEditable='true';
+    // document.designMode='on';
+
+    // 优化登陆后复制代码
+    document.querySelectorAll('code')
+        .forEach((element) => element.style.userSelect = 'unset');
+    document.querySelectorAll('#content_views pre')
+        .forEach((element) => element.style.userSelect = 'unset');
+
+    // 移除“登陆后复制”按钮
+    document.querySelectorAll('.hljs-button').forEach(element => element.remove());
+
+    // 移除 readmore 按钮，并显示全文
+    document.querySelectorAll('.hide-article-box')
+        .forEach((element) => element.remove());
+    document.querySelectorAll('.article_content')
+        .forEach((element) => element.style.height = 'initial');
+
+    // 去除复制后的copyright小尾巴
+    document.querySelectorAll('*').forEach(item=> {
+        item.oncopy = function (e) {
+            e.stopPropagation();
+        }
+    });
+}
+
 setInterval(hideLoginPopUp, 1000);
 optimiseUI();
+crackLoginCopy();
