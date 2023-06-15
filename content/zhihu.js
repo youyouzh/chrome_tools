@@ -36,6 +36,7 @@ function optimiseUi() {
     hideElement('div.ShareMenu');  // 隐藏分享按钮
     hideElement('div.ContentItem-action.Popover');  // 隐藏更多按钮
     hideElement('div.RichText-LinkCardContainer');  // 隐藏导流链接
+    hideElement('h1.QuestionHeader-title');  // 隐藏标题
 }
 
 /**

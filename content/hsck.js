@@ -17,7 +17,7 @@ function extractVideoUrl() {
     titleElement.parentElement.appendChild(urlElement);
 }
 
-// 隐藏广告
+// 隐藏 hscangku.com, hsck.cc 的广告
 function hideAd() {
     const titleElement = document.querySelector('head > title');
     // 通过title判断是否是指定网站，这个网站经常换域名

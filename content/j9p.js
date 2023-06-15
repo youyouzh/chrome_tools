@@ -3,16 +3,6 @@
  * 主要用来帮助快速下载文件，以及修改下载文件名称，避免每次都要另存为然后复制标题
  */
 
-function getDownloadTitle() {
-    const titleElement = document.querySelector('div.g-softinfo-box > div.info > h1');
-    return titleElement && titleElement.innerText;
-}
-
-function getDownloadUrl() {
-    const downloadElement = document.querySelector('ul.topdown > li.address_like > a');
-    return downloadElement && downloadElement.href;
-}
-
 function changeDownloadAction() {
     // 修改下载按钮的行为
     const sourceDownloadElement = document.querySelector('p.localdown > a');
@@ -26,8 +16,12 @@ function changeDownloadAction() {
     cloneElement.href = '#';
     sourceDownloadElement.parentElement.replaceChild(cloneElement, sourceDownloadElement);
 
-    const title = getDownloadTitle();
-    const downloadUrl = getDownloadUrl();
+    // 标题元素和下载地址元素
+    const titleElement = document.querySelector('div.g-softinfo-box > div.info > h1');
+    const title = titleElement && titleElement.innerText;
+    const downloadElement = document.querySelector('ul.topdown > li.address_like > a');
+    const downloadUrl = downloadElement && downloadElement.href;
+
     if (!title || !downloadUrl) {
         console.log('The download url or title is empty.');
         cloneElement.innerHTML = '<b>不能下载</b>';

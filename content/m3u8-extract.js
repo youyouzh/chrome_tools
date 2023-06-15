@@ -19,7 +19,8 @@ async function recordTitle(titleElement) {
       return
     }
     v['title'] = titleElement.innerText;
-    titleElement.append('【' + v['m3u8Url'] + '】')
+    const download_python_statement = `download_with_m3u8_url('${v["title"]}', '${v["m3u8Url"]}')`
+    titleElement.append('【' + download_python_statement + '】')
     return v;
   });
   console.log('------->videos:', m3u8Videos[activeTabId]);
