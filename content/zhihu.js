@@ -37,6 +37,7 @@ function optimiseUi() {
     hideElement('div.ContentItem-action.Popover');  // 隐藏更多按钮
     hideElement('div.RichText-LinkCardContainer');  // 隐藏导流链接
     hideElement('h1.QuestionHeader-title');  // 隐藏标题
+    hideElement('div.AppHeader-inner > a'); // 隐藏 知乎 图标
 }
 
 /**
