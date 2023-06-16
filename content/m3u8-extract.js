@@ -14,15 +14,18 @@ async function recordTitle(titleElement) {
     console.warn('The match m3u8Videos is not exist.', activeTabId, m3u8Videos);
     return;
   }
+
+  let downloadPythonStatement = ''
   m3u8Videos[activeTabId] = m3u8Videos[activeTabId].map(v => {
     if (v['m3u8Url'].indexOf('master.m3u8') >= 0) {
       return
     }
     v['title'] = titleElement.innerText;
-    const download_python_statement = `download_with_m3u8_url('${v["title"]}', '${v["m3u8Url"]}')`
-    titleElement.append('【' + download_python_statement + '】')
+    downloadPythonStatement += `download_with_m3u8_url('${v["title"]}', '${v["m3u8Url"]}')\n`
+    titleElement.append('【copied】')
     return v;
   });
+  copyContent(downloadPythonStatement)
   console.log('------->videos:', m3u8Videos[activeTabId]);
 }
 
