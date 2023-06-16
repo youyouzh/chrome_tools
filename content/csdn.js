@@ -10,6 +10,7 @@ function optimiseUI() {
 
 function hideLoginPopUp() {
     hideElement('div.passport-login-container');
+    hideElement('div.passport-login-tip-container');      // 隐藏登录提示
 }
 
 // 突破登录才能复制代码
