@@ -22,11 +22,11 @@ async function recordTitle(titleElement) {
     }
     v['title'] = titleElement.innerText;
     downloadPythonStatement += `download_with_m3u8_url('${v["title"]}', '${v["m3u8Url"]}')\n`
-    titleElement.append('【copied】')
+    titleElement.append(`【${v["m3u8Url"]}】`)
     return v;
   });
   copyContent(downloadPythonStatement)
-  console.log('------->videos:', m3u8Videos[activeTabId]);
+  console.log('------->videos:', downloadPythonStatement);
 }
 
 const titleElementSelectors = {

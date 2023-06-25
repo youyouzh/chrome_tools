@@ -86,10 +86,12 @@ chrome.webRequest.onHeadersReceived.addListener(async function (detail) {
             requestId: detail.requestId
         }
         console.log('receive m3u8 video.', m3u8Video);
-        m3u8Videos[detail.tabId].push(m3u8Video);
-        // url去重
-        const tempMap = new Map();
-        m3u8Videos[detail.tabId] = m3u8Videos[detail.tabId].filter(item => !tempMap.has(item.m3u8Url) && tempMap.set(item.m3u8Url, 1));
+
+        // 检查是否已经有该链接，没有则加入
+        const existUrls = m3u8Videos[detail.tabId].map(item => item.m3u8Url);
+        if (existUrls.indexOf(m3u8Video.m3u8Url) === -1) {
+            m3u8Videos[detail.tabId].push(m3u8Video);
+        }
         await _u_api.setStorage(_u_constant.storageKey.m3u8Videos, m3u8Videos);
     }
 }, {urls: ["<all_urls>"]}, ["responseHeaders"]);
