@@ -20,13 +20,17 @@ async function recordTitle(titleElement) {
     if (v['m3u8Url'].indexOf('master.m3u8') >= 0) {
       return
     }
-    v['title'] = titleElement.innerText;
     downloadPythonStatement += `download_with_m3u8_url('${v["title"]}', '${v["m3u8Url"]}')\n`
+    v['title'] = titleElement.innerText;
     titleElement.append(`【${v["m3u8Url"]}】`)
     return v;
   });
-  copyContent(downloadPythonStatement)
   console.log('------->videos:', downloadPythonStatement);
+  copyContent(downloadPythonStatement);
+  // setTimeout(() => window.navigator.clipboard.writeText(downloadPythonStatement), 3000);
+  // DOMException: Document is not focused. clipboard
+  // https://stackoverflow.com/questions/56306153/domexception-on-calling-navigator-clipboard-readtext
+  // await window.navigator.clipboard.writeText(downloadPythonStatement);
 }
 
 const titleElementSelectors = {
@@ -40,9 +44,9 @@ function extractVideoTitle() {
   for (const website in titleElementSelectors) {
     const titleElement = document.querySelector(titleElementSelectors[website]);
     if (!titleElement) {
-      console.log('Can not find title element: ', website);
       continue;
     }
+    console.log('Found title element: ', website);
     recordTitle(titleElement);
     return;
   }

@@ -2,14 +2,6 @@
  * popup.js
  */
 
-function copyContent(content) {
-    const contentElement = document.getElementById('copy-content');
-    contentElement.value = content;
-    contentElement.textContent = content;
-    contentElement.select();
-    document.execCommand('Copy');
-}
-
 document.getElementById('download-button').addEventListener("click", async () => {
     // 下载文件
     // for (const downloadUrl of downloadUrls) {

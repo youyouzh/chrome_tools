@@ -222,15 +222,25 @@ function focusOrCreateTab(url) {
  * @param content 复制的内容
  */
 function copyContent(content) {
-    // navigator.clipboard.write(content);
-    const copyFrom = document.createElement('textarea');
-    copyFrom.style.position = 'absolute';
-    copyFrom.style.left = '-1000px';
-    copyFrom.style.top = '-1000px';
-    copyFrom.textContent = content;
-    document.body.append(copyFrom);
-    copyFrom.select();
-    document.execCommand('copy');
+  // const copyFrom = document.getElementById('copy-content');
+  // Create a textbox field where we can insert text to.
+  const copyFrom = document.createElement("textarea");
+  // Set the text content to be the text you wished to copy.
+  copyFrom.textContent = content;
+  // Append the textbox field into the body as a child.
+  // "execCommand()" only works when there exists selected text, and the text is inside
+  // document.body (meaning the text is part of a valid rendered HTML element).
+  document.body.appendChild(copyFrom);
+  // Select all the text!
+  copyFrom.select();
+  // Execute command
+  document.execCommand('copy');
+  // (Optional) De-select the text using blur().
+  copyFrom.blur();
+  // Remove the textbox field from the document.body, so no other JavaScript nor
+  // other elements can get access to this.
+  document.body.removeChild(copyFrom);
+  // window.navigator.clipboard.writeText(content);
 }
 
 /**
