@@ -58,7 +58,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
  */
 chrome.webRequest.onHeadersReceived.addListener(async function (detail) {
     // 请求地址中包含 .m3u8
-    if (detail.url.match(/(\.m3u8)/)) {
+    if (detail.url.match(/(\.m3u8|\.mp4\?)/)) {
         console.log('catch m3u8 url: ', detail.url);
         let m3u8Videos = await _u_api.getStorage(_u_constant.storageKey.m3u8Videos);
 

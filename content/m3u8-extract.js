@@ -37,7 +37,9 @@ const titleElementSelectors = {
   'xvideo.com': '#main > h2.page-title',
   'pornlulu.com': 'h1.title',
   'pornhub.com': 'h1.title',
-  'jable.tv': 'div.header-left > h4'
+  'jable.tv': 'div.header-left > h4',
+  'missav.com': 'div.mt-4 > h1',
+  'tktube.com': 'div.info > div.item'
 }
 
 function extractVideoTitle() {
@@ -52,4 +54,4 @@ function extractVideoTitle() {
   }
 }
 
-setTimeout(extractVideoTitle, 2000);
+setTimeout(extractVideoTitle, 3000);
