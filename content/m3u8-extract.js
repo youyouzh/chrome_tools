@@ -16,9 +16,12 @@ async function recordTitle(titleElement) {
   }
 
   let downloadPythonStatement = ''
+  const skip_url_tokens = ['master.m3u8', '_240p.m3u8', 'playlist.m3u8']
   m3u8Videos[activeTabId] = m3u8Videos[activeTabId].map(v => {
-    if (v['m3u8Url'].indexOf('master.m3u8') >= 0) {
-      return
+    for (const skip_url_token of skip_url_tokens) {
+      if (v['m3u8Url'].indexOf(skip_url_token) >= 0) {
+        return
+      }
     }
     downloadPythonStatement += `download_with_m3u8_url('${v["title"]}', '${v["m3u8Url"]}')\n`
     v['title'] = titleElement.innerText;
