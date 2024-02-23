@@ -42,7 +42,8 @@ const titleElementSelectors = {
   'pornhub.com': 'h1.title',
   'jable.tv': 'div.header-left > h4',
   'missav.com': 'div.mt-4 > h1',
-  'tktube.com': 'div.info > div.item'
+  'tktube.com': 'div.info > div.item',
+  'njav.tv': 'div.mr-3 > h1'
 }
 
 function extractVideoTitle() {
