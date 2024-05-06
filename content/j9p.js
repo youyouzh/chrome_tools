@@ -32,14 +32,7 @@ function changeDownloadAction() {
 
     // 这样绑定的事件不能在控制台看到，真奇怪
     cloneElement.addEventListener('click', (evt) => {
-        // 发送消息给扩展程序
-        chrome.runtime.sendMessage({
-            type: 'download',
-            url: downloadUrl,
-            path: 'j9p',
-            filename: title + getExtension(downloadUrl),
-            force: false
-        });
+        addDownloadTask(downloadUrl, 'j9p', title + getExtension(downloadUrl))
 
         evt.preventDefault();
         evt.stopImmediatePropagation();

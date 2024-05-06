@@ -132,7 +132,7 @@ async function processDownloadUrl(message) {
 
     // 支持相对路径，windows的”下载“文件夹下
     let filename = getFilename(message.url);
-    if (message.hasOwnProperty('filename')) {
+    if (message.hasOwnProperty('filename') && message.filename) {
         filename = message.filename;
     }
 

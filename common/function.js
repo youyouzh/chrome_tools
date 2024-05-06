@@ -105,6 +105,25 @@ function downloadImage(imageUrl, imagName) {
 }
 
 /**
+ * 添加后台下载任务
+ * @param downloadUrl 下载地址
+ * @param dirPath 保存文件路径，默认实在C盘下载目录下创建子目录
+ * @param saveFilename 下载保存文件名，如果为空，则从url中取名字
+ * @param force 是否强制下载，后台会保存下载历史，如果为false可能会重复下载
+ */
+function addDownloadTask(downloadUrl, dirPath, saveFilename = '', force = false) {
+    console.log(`add background download task. url: ${downloadUrl}, path: ${dirPath}, filename: ${saveFilename}`)
+    // 发送消息给扩展程序
+    chrome.runtime.sendMessage({
+        type: _u_constant.messageType.downloadTask,
+        url: downloadUrl,
+        path: dirPath,
+        filename: saveFilename,
+        force: force
+    });
+}
+
+/**
  * 隐藏掉指定类名称的元素
  *
  * @param querySelector css查询选择器

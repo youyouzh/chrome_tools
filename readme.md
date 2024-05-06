@@ -49,7 +49,7 @@ manifest.json关于content script配置项目：
   - 突破复制限制，选中则立即复制
 - [sass官网文档](https://www.sass.hk/docs/)隐藏侧边栏广告
 - 360文档禁用弹窗，隐藏侧边栏推广等内容
-- bilibili网站专栏图片点击即下载功能
+- [bilibili网站专栏](https://www.bilibili.com/read/home?from=category_1)图片点击即下载功能
 - [j9q](http://www.j9p.com/)网站点击即下载文档
 - [jj20](http://www.jj20.com/bz/nxxz/shxz/329486_2.html)网站点击即下载图片功能
 - hsck类网站的定制化去广告功能

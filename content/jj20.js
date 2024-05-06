@@ -46,23 +46,14 @@ function focusPicture() {
     // cloneImageElement.addEventListener('contextmenu', () => readyDownloadImage(fullImageUrl));
     cloneImageElement.addEventListener('click', () => readyDownloadImage(fullImageUrl));
     cloneImageElement.addEventListener('dblclick', () => readyDownloadImage(fullImageUrl, true));
-    document.querySelector('li.cur').addEventListener('dblclick', () => readyDownloadImage(fullImageUrl, false));
+    document.querySelector('li.cur').addEventListener('dblclick', () => readyDownloadImage(fullImageUrl));
 }
 
-function readyDownloadImage(imageUrl, force=false) {
-    console.log('ready download image: ' + imageUrl);
+function readyDownloadImage(imageUrl, force = false) {
     document.getElementById('bigImg').src = imageUrl;
     let title = document.querySelector('div.tu-tit h1 span').innerText;
     title = title.replace(/\([\d/]+\)/, '');
-
-    // 发送消息给扩展程序
-    chrome.runtime.sendMessage({
-        type: _u_constant.messageType.downloadTask,
-        url: imageUrl,
-        path: 'jj20',
-        filename: title + '-' + getFilename(imageUrl),
-        force: force
-    });
+    addDownloadTask(imageUrl, 'jj20', title + '-' + getFilename(imageUrl), force);
 }
 
 focusPicture();
