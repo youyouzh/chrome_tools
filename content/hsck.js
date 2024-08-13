@@ -19,9 +19,10 @@ function extractVideoUrl() {
 
 // 隐藏 hscangku.com, hsck.cc 的广告
 function hideAd() {
-    const titleElement = document.querySelector('head > title');
+    // const titleElement = document.querySelector('head > title');
+    const titleElement = document.querySelector('div.hidden-xs');
     // 通过title判断是否是指定网站，这个网站经常换域名
-    if (!!titleElement && titleElement.innerText.search('黄色仓库') >= 0) {
+    if (!!titleElement && (titleElement.innerText.search('黄色仓库') >= 0 || titleElement.innerText.search('taohuazu') >= 0)) {
         const homeAdElement = document.querySelector('body > div');
         if (homeAdElement.childElementCount >= 20) {
             homeAdElement.style.display = 'none';
