@@ -29,7 +29,7 @@ async function recordTitle(titleElement) {
     return v;
   });
   console.log('------->videos:', downloadPythonStatement);
-  copyContent(downloadPythonStatement);
+  // copyContent(downloadPythonStatement);
   // setTimeout(() => window.navigator.clipboard.writeText(downloadPythonStatement), 3000);
   // DOMException: Document is not focused. clipboard
   // https://stackoverflow.com/questions/56306153/domexception-on-calling-navigator-clipboard-readtext
@@ -43,7 +43,8 @@ const titleElementSelectors = {
   'jable.tv': 'div.header-left > h4',
   'missav.com': 'div.mt-4 > h1',
   'tktube.com': 'div.info > div.item',
-  'njav.tv': 'div.mr-3 > h1'
+  'njav.tv': 'div.mr-3 > h1',
+  'supjav.com': 'div.archive-title > h1'
 }
 
 function extractVideoTitle() {
@@ -59,3 +60,4 @@ function extractVideoTitle() {
 }
 
 setTimeout(extractVideoTitle, 3000);
+setTimeout(extractVideoTitle, 10000);
