@@ -59,7 +59,16 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 chrome.webRequest.onHeadersReceived.addListener(async function (detail) {
     // 请求地址中包含 .m3u8
     if (detail.url.match(/(\.m3u8|\.mp4\?)/)) {
-        console.log('catch m3u8 url: ', detail.url);
+
+    }
+}, {urls: ["<all_urls>"]}, ["responseHeaders"]);
+
+/**
+ * 监听请求，获取请求头
+ */
+chrome.webRequest.onSendHeaders.addListener(async function (detail){
+    if (detail.url.match(/(\.m3u8|\.mp4\?)/)) {
+        console.log('catch video request on send headers.')
         let m3u8Videos = await _u_api.getStorage(_u_constant.storageKey.m3u8Videos);
 
         // 兼容处理和初始化
@@ -83,9 +92,15 @@ chrome.webRequest.onHeadersReceived.addListener(async function (detail) {
             m3u8Url: detail.url,
             tabId: detail.tabId,
             initiator: detail.initiator,
-            requestId: detail.requestId
+            requestId: detail.requestId,
+            referer: detail.requestHeaders
         }
-        console.log('receive m3u8 video.', m3u8Video);
+        for (const header of detail.requestHeaders) {
+            if (header.name === 'Referer') {
+                m3u8Video['referer'] = header.value
+            }
+        }
+        console.log('receive video: ', m3u8Video);
 
         // 检查是否已经有该链接，没有则加入
         const existUrls = m3u8Videos[detail.tabId].map(item => item.m3u8Url);
@@ -94,7 +109,7 @@ chrome.webRequest.onHeadersReceived.addListener(async function (detail) {
         }
         await _u_api.setStorage(_u_constant.storageKey.m3u8Videos, m3u8Videos);
     }
-}, {urls: ["<all_urls>"]}, ["responseHeaders"]);
+}, {urls: ["<all_urls>"]}, ["requestHeaders", "extraHeaders"]);
 
 /**
  * 将tabId保存，方便 content_script 获取
