@@ -45,13 +45,25 @@
 			"js": ["content/jj20.js"]
 		},
 		{
-			"matches": ["*://*.fandom.com/*", "*://*.360doc.com/*", "*://www.sass.hk/*", "*://tophub.today/*"],
+			"matches": ["*://*.fandom.com/*",
+				"*://*.360doc.com/*",
+				"*://www.sass.hk/*",
+				"*://tophub.today/*",
+				"*://*.nodejs.cn/*",
+				"*://*.j9p.com/*"
+			],
 			"js": ["content/optimise-ui.js"]
 		},
 		{
-			"matches": ["*://*.xvideos.com/*", "*://*.pornlulu.com/*", "*://*.pornhub.com/*", "*://*.jable.tv/*",
-				"*://*.missav.com/*", "*://*.njav.tv/*", "*://*.javhub.net/*", "*://*.supjav.com/*",
-				"*://*.j9p.com/*"],
+			"matches": ["*://*.xvideos.com/*",
+				"*://*.pornlulu.com/*",
+				"*://*.pornhub.com/*",
+				"*://*.jable.tv/*",
+				"*://*.missav.com/*",
+				"*://*.njav.tv/*",
+				"*://*.javhub.net/*",
+				"*://*.supjav.com/*"
+			],
 			"js": ["content/m3u8-extract.js"]
 		},
 		{

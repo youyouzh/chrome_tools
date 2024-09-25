@@ -85,13 +85,21 @@ function changeDownloadActionForJ9p() {
     });
 }
 
+/**
+ * 看文档的时候有个超级烦人的置顶广告，太鸡儿恶心了
+ */
+function hideNodeJsCnAd() {
+    hideElement('div.pageadw');
+    hideElement('div#pagead0');
+}
+
 const dispatcherMap = {
     'saas.hk': hideSaasHkAd,
     'fandom.com': hideFandomAd,
     '360doc.com': optimiseUiFor360Doc,
     'tophub.today': optimiseUiForTopHub,
     'j9p.com': changeDownloadActionForJ9p,
-
+    'nodejs.cn': hideNodeJsCnAd,
 }
 
 function optimiseUiDispatcher() {
@@ -104,6 +112,6 @@ function optimiseUiDispatcher() {
     }
 }
 
-setTimeout(() => {
+setInterval(() => {
     optimiseUiDispatcher();
 }, 500);
