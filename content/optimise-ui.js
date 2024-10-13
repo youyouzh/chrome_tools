@@ -93,6 +93,10 @@ function hideNodeJsCnAd() {
     hideElement('div#pagead0');
 }
 
+function hideAdForGameSky() {
+    hideElement('div.pcWuKongCode');
+}
+
 const dispatcherMap = {
     'saas.hk': hideSaasHkAd,
     'fandom.com': hideFandomAd,
@@ -100,6 +104,11 @@ const dispatcherMap = {
     'tophub.today': optimiseUiForTopHub,
     'j9p.com': changeDownloadActionForJ9p,
     'nodejs.cn': hideNodeJsCnAd,
+    'gamersky.com': hideAdForGameSky,
+    'huww98.github.io': () => {
+        document.querySelector('#desc').setAttribute('rows', '16');
+        document.querySelector('#bp-str').setAttribute('rows', '8');
+    }
 }
 
 function optimiseUiDispatcher() {

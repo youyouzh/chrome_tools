@@ -50,7 +50,9 @@
 				"*://www.sass.hk/*",
 				"*://tophub.today/*",
 				"*://*.nodejs.cn/*",
-				"*://*.j9p.com/*"
+				"*://*.j9p.com/*",
+				"*://*.gamersky.com/*",
+				"*://huww98.github.io/*"
 			],
 			"js": ["content/optimise-ui.js"]
 		},
