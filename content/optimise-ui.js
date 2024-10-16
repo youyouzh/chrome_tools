@@ -2,22 +2,6 @@
  * UI优化类处理，主要针对某些特定的网站，隐藏一些和内容无关的广告和推荐等
  */
 
-// 隐藏掉 saas.hk 网站的广告
-function hideSaasHkAd() {
-    hideElement('gg');
-}
-
-// 泰拉瑞亚wiki网站屏蔽广告
-function hideFandomAd() {
-    hideElement('.top-ads-container');
-    hideElement('.bottom-ads-container');
-    hideElement('#incontent_boxad_1');
-    hideElement('#mixed-content-footer');
-    hideElement('.page__right-rail');
-    hideElement('.wds-global-footer');
-    hideElement('#top_boxad');
-}
-
 // 360文档隐藏侧边栏等
 function optimiseUiFor360Doc() {
     // 只保留文章内容
@@ -31,18 +15,6 @@ function optimiseUiFor360Doc() {
     document.body.replaceChildren();
     document.body.appendChild(articleNode);
     document.body.classList.remove('articleMaxH');
-}
-
-function optimiseUiForTopHub() {
-    // 隐藏顶部导航栏
-    hideElement('div#appbar');
-    hideElement('div#tabbar');
-    hideElement('div.cq');
-    hideElement('div.alert');
-
-    // 隐藏热卖广告
-    hideElement('div.bc > div:nth-child(1)');
-    hideElement('div.bc > div:nth-child(2)');
 }
 
 /**
@@ -85,26 +57,41 @@ function changeDownloadActionForJ9p() {
     });
 }
 
-/**
- * 看文档的时候有个超级烦人的置顶广告，太鸡儿恶心了
- */
-function hideNodeJsCnAd() {
-    hideElement('div.pageadw');
-    hideElement('div#pagead0');
-}
-
-function hideAdForGameSky() {
-    hideElement('div.pcWuKongCode');
-}
-
 const dispatcherMap = {
-    'saas.hk': hideSaasHkAd,
-    'fandom.com': hideFandomAd,
+    'saas.hk': () => {
+        // 隐藏掉 saas.hk 网站的广告
+        hideElement('gg');
+    },
+    'fandom.com': () => {
+        // 泰拉瑞亚wiki网站屏蔽广告
+        hideElement('.top-ads-container');
+        hideElement('.bottom-ads-container');
+        hideElement('#incontent_boxad_1');
+        hideElement('#mixed-content-footer');
+        hideElement('.page__right-rail');
+        hideElement('.wds-global-footer');
+        hideElement('#top_boxad');
+    },
     '360doc.com': optimiseUiFor360Doc,
-    'tophub.today': optimiseUiForTopHub,
+    'tophub.today': () => {
+        // 隐藏顶部导航栏
+        hideElement('div#appbar');
+        hideElement('div#tabbar');
+        hideElement('div.cq');
+        hideElement('div.alert');
+
+        // 隐藏热卖广告
+        hideElement('div.bc > div:nth-child(1)');
+        hideElement('div.bc > div:nth-child(2)');
+    },
     'j9p.com': changeDownloadActionForJ9p,
-    'nodejs.cn': hideNodeJsCnAd,
-    'gamersky.com': hideAdForGameSky,
+    'nodejs.cn': () => {
+        hideElement('div.pageadw');
+        hideElement('div#pagead0');
+    },
+    'gamersky.com': () => {
+        hideElement('div.pcWuKongCode');
+    },
     'huww98.github.io': () => {
         document.querySelector('#desc').setAttribute('rows', '16');
         document.querySelector('#bp-str').setAttribute('rows', '8');
