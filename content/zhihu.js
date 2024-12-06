@@ -24,10 +24,10 @@ function hideAppHeadAndAction() {
 function optimiseUi() {
     // 修改内容宽度，免得只有中间一小条
     querySelector('div.Question-main', (element) => {
-        element.style.width = '60%';
+        element.style.width = '80%';
         element.style.justifyContent = 'center';
     });
-    querySelector('div.Question-mainColumn', (element) => element.style.width = '60%');
+    querySelector('div.Question-mainColumn', (element) => element.style.width = '80%');
     hideElement('div.Sticky.is-fixed');   // 隐藏侧边栏
     hideElement('.Reward');               // 隐藏赞赏按钮
     hideElement('button.FollowButton');      // 隐藏关注按钮
