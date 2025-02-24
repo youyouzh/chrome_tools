@@ -24,7 +24,7 @@ function hideAppHeadAndAction() {
 function optimiseUi() {
     // 修改内容宽度，免得只有中间一小条
     querySelector('div.Question-main', (element) => {
-        element.style.width = '80%';
+        element.style.width = '100%';
         element.style.justifyContent = 'center';
     });
     querySelector('div.Question-mainColumn', (element) => element.style.width = '80%');
