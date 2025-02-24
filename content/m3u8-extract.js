@@ -25,7 +25,10 @@ async function recordTitle(titleElement) {
     }
     downloadPythonStatement += `download_with_m3u8_url('${v["title"]}', '${v["m3u8Url"]}')\n`
     v['title'] = titleElement.innerText;
-    titleElement.append(`【${v["m3u8Url"]}】`)
+    // 链接未加入标题才添加
+    if (titleElement.innerText.indexOf(v['m3u8Url']) < 0) {
+      titleElement.append(`【${v["m3u8Url"]}】`)
+    }
     return v;
   });
   console.log('------->videos:', downloadPythonStatement);
@@ -41,7 +44,7 @@ const titleElementSelectors = {
   'pornlulu.com': 'h1.title',
   'pornhub.com': 'h1.title',
   'jable.tv': 'div.header-left > h4',
-  'missav.com': 'div.mt-4 > h1',
+  'missav': 'div.mt-4 > h1',
   'tktube.com': 'div.info > div.item',
   'njav.tv': 'div.mr-3 > h1',
   'supjav.com': 'div.archive-title > h1'
