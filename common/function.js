@@ -310,7 +310,7 @@ function getExtension(url) {
 }
 
 /**
- * 通过chrome扩展下载问卷，问卷保存在【下载】文件夹下面
+ * 通过chrome扩展下载文件，文件保存在【下载】文件夹下面
  *
  * @param downloadUrl 完整的下载地址
  * @param path 保存路径，如 j9q，文章则保存在【下载/j9q/】下面
