@@ -57,6 +57,56 @@ function changeDownloadActionForJ9p() {
     });
 }
 
+// 复制小说内容并自动翻页
+function copyArticleContent(){
+    let articleNode = document.querySelector('body.theme_2');
+    if (!articleNode) {
+        console.log('articleNode not found');
+        return;
+    }
+    console.log('articleNode found');
+    // 监听articleNode 的点击事件，复制内容到剪切板
+    articleNode.addEventListener('click', () => {
+        let content = document.querySelector('div.title_box > h2').innerText + '\n\n' + document.querySelector('div.article').innerText + '\n\n'
+        content = content.replace('UAA地址发布页：uaadizhi.com 加入官方电报群，了解最新动态！', '')
+        copyContent(content)
+        console.log('copy content success: ' + document.querySelector('div.title_box > h2').innerText)
+        document.querySelector('a.next_chapter').click()
+    })
+}
+
+// 隐藏 hscangku.com, hsck.cc 的广告
+function hideHsckAd() {
+    // const titleElement = document.querySelector('head > title');
+    const titleElement = document.querySelector('div.hidden-xs');
+    // 通过title判断是否是指定网站，这个网站经常换域名
+    if (!!titleElement && (titleElement.innerText.search('黄色仓库') >= 0 || titleElement.innerText.search('taohuazu') >= 0)) {
+        const homeAdElement = document.querySelector('body > div');
+        if (homeAdElement.childElementCount >= 20) {
+            homeAdElement.style.display = 'none';
+        }
+
+        hideElement('div.stui-warp-content > div:nth-child(2) > a');
+    }
+}
+
+// 隐藏轻微课的广告，并自动切换tab页到问题页面
+function hideAdForQwk() {
+    hideElement('.c-course-view-top-wrap');  // 课程头部介绍
+    hideElement('.c-meiqia');  // 弹窗广告
+    hideElement('.qwk-kf-button');  // 客服图标
+    hideElement('iframe');  // 客服iframe
+    hideElement('.c-footer');       // 页面底部说明
+    hideElement('.c-page-2021-entrance'); // 右侧固定栏
+    hideElement('.c-footer-ad');     // 底部广告栏
+    hideElement('.c-footer-banner');     // 底部广告栏
+
+    const questionTabElement = document.getElementById('tab-works');
+    if (!!questionTabElement) {
+        questionTabElement.click();
+    }
+}
+
 const dispatcherMap = {
     'saas.hk': () => {
         // 隐藏掉 saas.hk 网站的广告
@@ -95,7 +145,10 @@ const dispatcherMap = {
     'huww98.github.io': () => {
         document.querySelector('#desc').setAttribute('rows', '16');
         document.querySelector('#bp-str').setAttribute('rows', '8');
-    }
+    },
+    'uaa.com': copyArticleContent,
+    '': hideHsckAd,
+    'qingwk.com': hideAdForQwk,
 }
 
 function optimiseUiDispatcher() {
@@ -108,6 +161,6 @@ function optimiseUiDispatcher() {
     }
 }
 
-setInterval(() => {
+setTimeout(() => {
     optimiseUiDispatcher();
 }, 500);

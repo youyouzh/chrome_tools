@@ -37,10 +37,6 @@
 			"js": ["content/zhihu.js"]
 		},
 		{
-			"matches": ["*://*.qingwk.com/*"],
-			"js": ["content/qingwk.js"]
-		},
-		{
 			"matches": ["*://*.jj20.com/*"],
 			"js": ["content/jj20.js"]
 		},
@@ -72,10 +68,6 @@
 		{
 			"matches": ["*://*.blog.csdn.net/*"],
 			"js": ["content/csdn.js"]
-		},
-		{
-			"matches": ["*://*/*"],
-			"js": ["content/hsck.js"]
 		},
 		{
 		  "matches": ["*://*.bilibili.com/*"],
