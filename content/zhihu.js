@@ -22,22 +22,27 @@ function hideAppHeadAndAction() {
  * 优化UI，修改内容宽度，隐藏广告和不必要的组件
  */
 function optimiseUi() {
-    // 修改内容宽度，免得只有中间一小条
-    querySelector('div.Question-main', (element) => {
-        element.style.width = '100%';
-        element.style.justifyContent = 'center';
+    // 回答内容居中，宽度调整
+    querySelector('div.Question-main', (element) => element.style.width = '100%');
+    querySelector('div.Question-mainColumn', (element) => {
+        element.style.width = '80%';
+        element.style.margin = '0 auto';
     });
-    querySelector('div.Question-mainColumn', (element) => element.style.width = '80%');
-    hideElement('div.Sticky.is-fixed');   // 隐藏侧边栏
+
+    hideElement('div[data-za-detail-view-path-module="RightSideBar"]');   // 隐藏侧边栏
+
+    // 隐藏顶部区域
+    hideElement('div.TopstoryPageHeader-main');   // 隐藏顶部导航栏
+    hideElement('div.AppHeader-inner > a');   // 隐藏 知乎 图标
+    hideElement('div.AppHeader-inner > ul.AppHeader-Tabs');   // 隐藏导航菜单栏
+    hideElement('div.QuestionHeader-side > div.QuestionButtonGroup');   // 隐藏顶部右侧按钮：【提问问题】和【关注问题】
+
+    // 隐藏操作按钮
     hideElement('.Reward');               // 隐藏赞赏按钮
-    hideElement('button.FollowButton');      // 隐藏关注按钮
-    hideElement('div.QuestionHeader-side');  // 隐藏顶部侧边栏，【提问问题】和【关注问题】
-    hideElement('div.Question-sideColumn');  // 隐藏右边栏：相关问题和相关推荐
-    hideElement('div.ShareMenu');  // 隐藏分享按钮
-    hideElement('div.ContentItem-action.Popover');  // 隐藏更多按钮
     hideElement('div.RichText-LinkCardContainer');  // 隐藏导流链接
+    hideElement('div.ContentItem-action.ShareMenu');   // 隐藏分享按钮
+
     hideElement('h1.QuestionHeader-title');  // 隐藏标题
-    hideElement('div.AppHeader-inner > a'); // 隐藏 知乎 图标
 }
 
 /**
@@ -68,9 +73,9 @@ document.onclick = () => {
 setInterval(() => {
     optimiseUi();
     restoreOriginUrl();
-     _u_api.getStorage(_u_constant.storageKey.zhihuReadMod).then((readMod) => {
-         if (readMod) {
-             hideAppHeadAndAction();
-         }
-     });
+     // _u_api.getStorage(_u_constant.storageKey.zhihuReadMod).then((readMod) => {
+     //     if (readMod) {
+     //         hideAppHeadAndAction();
+     //     }
+     // });
 }, 1000);
