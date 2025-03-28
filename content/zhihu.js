@@ -28,6 +28,10 @@ function optimiseUi() {
         element.style.width = '80%';
         element.style.margin = '0 auto';
     });
+    querySelector('div.Topstory-mainColumn', (element) => {
+        element.style.width = '80%';
+        element.style.margin = '0 auto';
+    });
 
     hideElement('div[data-za-detail-view-path-module="RightSideBar"]');   // 隐藏侧边栏
 
