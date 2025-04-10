@@ -8,6 +8,8 @@ function hideLoginPopUp() {
     hideElement('div.passport-login-tip-container');      // 隐藏登录提示
     hideElement('div.recommend-box');  // 隐藏底部的推广栏
     hideElement('#csdn-toolbar');      // 隐藏顶部工具栏，几乎不会用到
+    hideElement('div.blog_container_aside');   // 隐藏左侧边栏
+    hideElement('div.csdn-side-toolbar');      // 隐藏右侧工具栏
 }
 
 // 突破登录才能复制代码

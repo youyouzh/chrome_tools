@@ -29,14 +29,18 @@ _u_api = {
         // Immediately return a promise and start asynchronous work
         return new Promise((resolve, reject) => {
             // Asynchronously fetch all data from storage.sync.
-            chrome.storage.local.get(keys, (items) => {
-                // Pass any observed errors down the promise chain.
-                if (chrome.runtime.lastError) {
-                    return reject(chrome.runtime.lastError);
-                }
-                // Pass the data retrieved from storage down the promise chain.
-                resolve(items[keys]);
-            });
+            try {
+                chrome.storage.local.get(keys, (items) => {
+                    // Pass any observed errors down the promise chain.
+                    if (chrome.runtime.lastError) {
+                        return reject(chrome.runtime.lastError);
+                    }
+                    // Pass the data retrieved from storage down the promise chain.
+                    resolve(items[keys]);
+                });
+            } catch (e) {
+                return reject(e);
+            }
         });
     },
     /**
@@ -306,7 +310,7 @@ function getExtension(url) {
 }
 
 /**
- * 通过chrome扩展下载问卷，问卷保存在【下载】文件夹下面
+ * 通过chrome扩展下载文件，文件保存在【下载】文件夹下面
  *
  * @param downloadUrl 完整的下载地址
  * @param path 保存路径，如 j9q，文章则保存在【下载/j9q/】下面
