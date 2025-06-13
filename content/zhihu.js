@@ -38,7 +38,9 @@ function optimiseUi() {
     // 隐藏顶部区域
     hideElement('div.TopstoryPageHeader-main');   // 隐藏顶部导航栏
     hideElement('div.AppHeader-inner > a');   // 隐藏 知乎 图标
+    hideElement('div.QuestionHeader-content > a');   // 隐藏 知乎 图标
     hideElement('div.AppHeader-inner > ul.AppHeader-Tabs');   // 隐藏导航菜单栏
+    hideElement('div.SearchBar-askContainer');   // 隐藏导航菜单栏
     hideElement('div.QuestionHeader-side > div.QuestionButtonGroup');   // 隐藏顶部右侧按钮：【提问问题】和【关注问题】
 
     // 隐藏操作按钮
