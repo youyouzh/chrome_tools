@@ -37,8 +37,10 @@ function optimiseUi() {
 
     // 隐藏顶部区域
     hideElement('div.TopstoryPageHeader-main');   // 隐藏顶部导航栏
-    hideElement('div.AppHeader-inner > a');   // 隐藏 知乎 图标
-    hideElement('div.QuestionHeader-content > a');   // 隐藏 知乎 图标
+    hideElement('div.AppHeader-inner > a');           // 隐藏 知乎 图标
+    hideElement('div.QuestionHeader-content > a');    // 隐藏 知乎 图标
+    hideElement('div.ColumnPageHeader-content > a');  // 隐藏 知乎 图标
+    hideElement('div.ColumnPageHeader-content > div');  // 隐藏 标题
     hideElement('div.AppHeader-inner > ul.AppHeader-Tabs');   // 隐藏导航菜单栏
     hideElement('div.SearchBar-askContainer');   // 隐藏导航菜单栏
     hideElement('div.QuestionHeader-side > div.QuestionButtonGroup');   // 隐藏顶部右侧按钮：【提问问题】和【关注问题】
@@ -47,6 +49,8 @@ function optimiseUi() {
     hideElement('.Reward');               // 隐藏赞赏按钮
     hideElement('div.RichText-LinkCardContainer');  // 隐藏导流链接
     hideElement('div.ContentItem-action.ShareMenu');   // 隐藏分享按钮
+    hideElement('div.ContentItem-actions > span');  // 隐藏赞同按钮
+    hideElement('div.ContentItem-actions > div');   // 隐藏更多按钮
 
     hideElement('h1.QuestionHeader-title');  // 隐藏标题
 }
