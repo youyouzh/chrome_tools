@@ -34,6 +34,7 @@ function optimiseUi() {
     });
 
     hideElement('div[data-za-detail-view-path-module="RightSideBar"]');   // 隐藏侧边栏
+    hideElement('div.AuthorCard');   // 隐藏作者卡片
 
     // 隐藏顶部区域
     hideElement('div.TopstoryPageHeader-main');   // 隐藏顶部导航栏
