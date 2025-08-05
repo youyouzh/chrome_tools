@@ -52,6 +52,7 @@ function optimiseUi() {
     hideElement('div.ContentItem-action.ShareMenu');   // 隐藏分享按钮
     hideElement('div.ContentItem-actions > span');  // 隐藏赞同按钮
     hideElement('div.ContentItem-actions > div');   // 隐藏更多按钮
+    hideElement('div.FollowButton');   // 隐藏关注按钮
 
     hideElement('h1.QuestionHeader-title');  // 隐藏标题
 }
