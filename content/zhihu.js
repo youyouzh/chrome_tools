@@ -39,6 +39,7 @@ function optimiseUi() {
     // 隐藏顶部区域
     hideElement('div.TopstoryPageHeader-main');   // 隐藏顶部导航栏
     hideElement('div.AppHeader-inner > a');           // 隐藏 知乎 图标
+    hideElement('header.AppHeader');           // 隐藏 知乎顶部栏
     hideElement('div.QuestionHeader-content > a');    // 隐藏 知乎 图标
     hideElement('div.ColumnPageHeader-content > a');  // 隐藏 知乎 图标
     hideElement('div.ColumnPageHeader-content > div');  // 隐藏 标题

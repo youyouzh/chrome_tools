@@ -149,6 +149,9 @@ const dispatcherMap = {
     'uaa.com': copyArticleContent,
     '': hideHsckAd,
     'qingwk.com': hideAdForQwk,
+    'xueqiu.com': () => {
+        hideElement('nav.stickyFixed');
+    },
 }
 
 function optimiseUiDispatcher() {
