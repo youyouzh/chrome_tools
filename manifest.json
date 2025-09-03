@@ -48,6 +48,7 @@
 				"*://*.nodejs.cn/*",
 				"*://*.j9p.com/*",
 				"*://*.gamersky.com/*",
+				"*://*.xueqiu.com/*",
 				"*://huww98.github.io/*"
 			],
 			"js": ["content/optimise-ui.js"]
